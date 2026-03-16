@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content= "width=device-width, initial-scale=1">
+  <title>Bay State Radio: {{ title }}</title>
+  <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <div class="hero">
+      <h1>{{ title }}</h1>
+    </div>
+    <nav>
+      <ul>
+        {% assign weighted_pages = collections.page | sort: 'data.weight' %}
+        {%- for navPage in weighted_pages -%}
+          <li><a href="{{ navPage.url }}"{% if navPage.url == page.url %} aria-current="page"{% endif %}>{{ navPage.data.linkName | default: navPage.data.title }}</a></li>
+        {%- endfor -%}
+      </ul>
+    </nav>
+  </header>
+  <main>
+    {{ content }}
+  </main>
+  <footer>
+    Copyright © {% year %} Bay State Radio Maintainers
+  </footer>
+</body>
+</html>

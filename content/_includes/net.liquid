@@ -1,0 +1,22 @@
+---
+layout: base.liquid
+---
+
+<section>
+  <table class="bordered">
+    <tr><th>Name:</th><td>{{ title }}</td></tr>
+{% if url %}
+    <tr><th>URL:</th><td><a href="{{ url }}">{{ url }}</a></td></tr>
+{% endif %}
+{% if frequency %}
+  <tr><th>Frequency:</th><td>{{ frequency }}</td></tr>
+{% endif %}
+{% if schedule %}
+  <tr><th>Schedule:</th><td>{{ schedule }}</td></tr>
+{% endif %}
+  </table>
+</section>
+
+<section>
+  {{ content }}
+</section>

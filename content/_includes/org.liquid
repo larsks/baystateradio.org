@@ -1,0 +1,17 @@
+---
+layout: base.liquid
+---
+
+<section>
+  <table class="bordered">
+    <tr><th>Name:</th><td>{{ title }}{% if abbreviation %} ({{ abbreviation }}){% endif %}</td></tr>
+    <tr><th>URL:</th><td><a href="{{ url }}">{{ url }}</a></td></tr>
+{% if location %}
+    <tr><th>Location:</th><td>{{ location }}</td></tr>
+{% endif %}
+  </table>
+</section>
+
+<section>
+  {{ content }}
+</section>

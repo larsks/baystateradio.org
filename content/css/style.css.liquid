@@ -1,0 +1,109 @@
+---
+permalink: /css/style.css
+---
+body {
+  max-width: 2400px; /* Prevents it from getting too wide */
+  margin: 0 auto;    /* Centers horizontally */
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+}
+
+header nav {
+  background-color: #222;
+  padding: 0.5rem 0.5in;
+}
+
+header nav ul {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+header nav a {
+  color: white;
+  text-decoration: none;
+  font-family: Avenir, Montserrat, Corbel, 'URW Gothic', source-sans-pro, sans-serif;
+  font-weight: 600;
+}
+
+header nav a:hover {
+  text-decoration: underline;
+}
+
+header nav a[aria-current="page"] {
+  font-weight: 900;
+}
+
+header h1 {
+  color: white;
+  /* font-family: system-ui, sans-serif; */
+  font-family: Avenir, Montserrat, Corbel, 'URW Gothic', source-sans-pro, sans-serif;
+  padding: 0 0.5in;
+}
+
+main {
+  padding: 0.25in 0.5in;
+}
+
+footer {
+  padding: 0 0.5in;
+}
+
+footer::before {
+  content: '';
+  display: block;
+  border-top: thin solid black;
+}
+
+table.orginfo,table.netinfo {
+  border-collapse: collapse;
+}
+
+table.orginfo,table.netinfo th {
+  text-align: left;
+  padding-right: 1ex;
+}
+
+table.netlist {
+  border-collapse: collapse;
+}
+
+table.netlist th,td {
+  border: thin solid black;
+  text-align: left;
+  padding: 1ex;
+}
+
+@media screen {
+
+  header .hero {
+    background-image: url("/assets/backbay-pano-wide.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    height: 400px;
+
+    display: flex;
+    align-items: center;      /* vertical center */
+    justify-content: center;  /* horizontal center */
+  }
+
+  header h1 {
+    text-shadow: 2px 2px 8px black;
+    font-weight: 900;
+    font-size: 600%;
+  }
+
+}
+
+@media print {
+  nav {
+    display: none;
+  }
+}
