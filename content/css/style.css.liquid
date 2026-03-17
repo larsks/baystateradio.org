@@ -60,23 +60,23 @@ footer::before {
   border-top: thin solid black;
 }
 
-table.orginfo,table.netinfo {
-  border-collapse: collapse;
+table.bordered {
+  border-collapse: separate;
+  border-spacing: 0;
 }
 
-table.orginfo,table.netinfo th {
-  text-align: left;
-  padding-right: 1ex;
-}
-
-table.netlist {
-  border-collapse: collapse;
-}
-
-table.netlist th,td {
-  border: thin solid black;
+table.bordered th {
   text-align: left;
   padding: 1ex;
+}
+
+table.bordered td {
+  border: thin solid black;
+  padding: 1ex;
+}
+
+table.bordered tr:has(td) + tr td {
+  border-top: none;
 }
 
 @media screen {
@@ -103,6 +103,10 @@ table.netlist th,td {
 }
 
 @media print {
+  a, a:link, a:visited, a:hover, a:active {
+    color: inherit !important;
+    text-decoration: none;
+  }
   nav {
     display: none;
   }
