@@ -1,6 +1,6 @@
 ---
 title: MMRA TIOS Net
-schedule: Tue 20:00 America/New_York 60m
+schedule: Tue 20:00 60m
 frequency: MMRA Repeaters
 ---
 

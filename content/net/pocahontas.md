@@ -1,6 +1,6 @@
 ---
 title: Pocahontas Net
-schedule: "* 07:30 America/New_York 60m"
+schedule: "* 07:30 60m"
 frequency: 147.28500 -0.600 100.0 (N1HSY)
 ---
 
