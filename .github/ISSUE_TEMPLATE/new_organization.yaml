@@ -1,0 +1,44 @@
+name: New organization
+description: Request to add a new organization to the Bay State Radio website
+title: "Request for new organization"
+labels: [new_org]
+body:
+  - type: input
+    attributes:
+      label: Organization name
+      description: What is the name of the organization?
+    validations:
+      required: true
+
+  - type: input
+    attributes:
+      label: Organization logo
+      description: Please provide a link to your organization's logo, if available.
+
+  - type: input
+    attributes:
+      label: Organization abbreviation
+      description: What is the acronym for your organization?
+    validations:
+      required: true
+
+  - type: input
+    attributes:
+      label: Orgnization URL
+      description: What is the URL for your organization?
+    validations:
+      required: true
+
+  - type: input
+    attributes:
+      label: Orgnization Location
+      description: What is your oganization located?
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Orgnization description
+      description: Please provide a short description of your organization.
+    validations:
+      required: true

@@ -1,0 +1,46 @@
+name: New net
+description: Request to add a new net to the Bay State Radio website
+title: "Request for new net"
+labels: [new_org]
+body:
+  - type: input
+    attributes:
+      label: Net name
+      description: What is the name of the net?
+    validations:
+      required: true
+
+  - type: input
+    attributes:
+      label: Net schedule
+      description: When is the net?
+    validations:
+      required: true
+
+  - type: input
+    attributes:
+      label: Sponsoring organization
+      description: If this net is sponsored by a club or other organization, please indicate the name here.
+
+  - type: input
+    attributes:
+      label: Net URL
+      description: Is there a URL that describes the net? If so, indicate it here.
+
+  - type: input
+    attributes:
+      label: Frequency
+      description: >-
+        Please indicate the frequency, offset, and pl tone. If your net occurs
+        on a repeater network, instead of frequency information leave the name
+        of the repeater organization (e.g., "MMRA"). If this is a DMR net,
+        indicate the talk group id.
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Net desrciption
+      description: Please provide a short description of the net
+    validations:
+      required: true

@@ -6,6 +6,10 @@ tags:
 - page
 ---
 
+To add a new organization to this directory, please use [our request form].
+
+[our request form]: https://github.com/baystateradio/baystateradio.org/issues/new?template=new_organization.yaml
+
 {% assign sortedOrgs = collections.org | sort: 'data.title' %}
 <div class="org-grid">
 {%- for org in sortedOrgs -%}
