@@ -21,6 +21,9 @@ function setupPassthroughCopy(eleventyConfig) {
 	passthroughCopyExtension(eleventyConfig, "txt");
 	passthroughCopyExtension(eleventyConfig, "gpx");
 	passthroughCopyExtension(eleventyConfig, "js");
+	passthroughCopyExtension(eleventyConfig, "gif");
+	passthroughCopyExtension(eleventyConfig, "webp");
+	passthroughCopyExtension(eleventyConfig, "svg");
 }
 
 function exposeRunMode(eleventyConfig) {

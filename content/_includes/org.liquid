@@ -12,6 +12,12 @@ layout: base.liquid
   </table>
 </section>
 
+{% if coverImage %}
+<section>
+  <img src="{{ coverImage }}" alt="{{ title }}">
+</section>
+{% endif %}
+
 <section>
   {{ content }}
 </section>
