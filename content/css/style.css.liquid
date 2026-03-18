@@ -6,6 +6,10 @@ body {
   margin: 0 auto;    /* Centers horizontally */
 }
 
+section {
+  margin-bottom: 1ex;
+}
+
 header {
   display: flex;
   flex-direction: column;
@@ -100,6 +104,79 @@ table.bordered tr:has(td) + tr td {
     font-size: 600%;
   }
 
+}
+
+/* Organization grid */
+.org-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.org-card {
+  border: thin solid #ccc;
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.org-card-image {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f5f5f5;
+}
+
+.org-card-image img {
+  max-width: 100%;
+  max-height: 200px;
+  object-fit: contain;
+}
+
+.org-card-body {
+  padding: 1rem;
+  flex: 1;
+}
+
+.org-card-body h2 {
+  margin-top: 0;
+  font-size: 1.1rem;
+}
+
+.org-card-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.org-card-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+.org-card-link:hover {
+  text-decoration: underline;
+}
+
+.org-card-url {
+  position: relative;
+  z-index: 1;
+}
+
+.org-card-body p {
+  margin: 0.25rem 0;
+  font-size: 0.9rem;
+}
+
+.org-card-body .org-excerpt {
+  color: #555;
+  margin-top: 0.5rem;
 }
 
 /* Net calendar */

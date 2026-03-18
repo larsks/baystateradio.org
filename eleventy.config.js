@@ -70,6 +70,11 @@ export default function (eleventyConfig) {
 
 	eleventyConfig.addFilter("formatSchedule", formatSchedule);
 
+	eleventyConfig.addFilter("firstParagraph", (html) => {
+		const match = html.match(/<p>([\s\S]*?)<\/p>/);
+		return match ? match[1].replace(/<[^>]+>/g, "") : "";
+	});
+
 	// This shortcode is used in the copyright notice to ensure it always shows
 	// the current year.
 	eleventyConfig.addShortcode("year", () => `${new Date().getFullYear()}`);
