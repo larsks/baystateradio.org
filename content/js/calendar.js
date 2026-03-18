@@ -131,7 +131,9 @@
       for (const evt of events) {
         const displayTime = formatTime12h(evt.time);
         const label = displayTime ? `${evt.title} ${displayTime}` : evt.title;
-        html += `<a class="cal-pill" href="${evt.url}" title="${evt.title}${displayTime ? " at " + displayTime : ""}">${label}</a>`;
+        const tooltipParts = [`${evt.title}${displayTime ? " at " + displayTime : ""}`];
+        if (evt.frequency) tooltipParts.push(evt.frequency);
+        html += `<a class="cal-pill" href="${evt.url}" title="${tooltipParts.join("\n")}">${label}</a>`;
       }
       html += `</div>`;
     }
