@@ -1,6 +1,6 @@
 ---
 title: Heavy Hitters Traffic Network
-schedule: "* 21:45 America/New_York 45m"
+schedule: "* 21:45 45m"
 url: https://ema.arrl.org/heavy-hitters-traffic-net/
 frequency: MMRA repeaters
 ---

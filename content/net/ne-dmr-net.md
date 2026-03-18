@@ -1,6 +1,6 @@
 ---
 title: New England DMR Net
-schedule: Mon 20:00 America/New_York 60m
+schedule: Mon 20:00 60m
 frequency: DMR TG 3181
 url: https://nedecn.org/about-nedecn/dmr-nets/
 ---
