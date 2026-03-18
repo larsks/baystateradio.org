@@ -19,6 +19,7 @@ function setupPassthroughCopy(eleventyConfig) {
 	passthroughCopyExtension(eleventyConfig, "pdf");
 	passthroughCopyExtension(eleventyConfig, "txt");
 	passthroughCopyExtension(eleventyConfig, "gpx");
+	passthroughCopyExtension(eleventyConfig, "js");
 }
 
 function exposeRunMode(eleventyConfig) {

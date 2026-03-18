@@ -6,6 +6,9 @@ tags:
 - page
 ---
 
+<div id="net-calendar"></div>
+<script src="/js/calendar.js" defer></script>
+
 <table class="bordered">
   <tr>
     <th>Name</th>

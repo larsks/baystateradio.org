@@ -102,6 +102,103 @@ table.bordered tr:has(td) + tr td {
 
 }
 
+/* Net calendar */
+#net-calendar {
+  margin-bottom: 2rem;
+}
+
+.cal-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.cal-month-label {
+  font-weight: 700;
+  font-size: 1.1rem;
+  font-family: Avenir, Montserrat, Corbel, 'URW Gothic', source-sans-pro, sans-serif;
+}
+
+.cal-nav {
+  background: #222;
+  color: white;
+  border: none;
+  padding: 0.2rem 0.6rem;
+  font-size: 1.4rem;
+  cursor: pointer;
+  line-height: 1;
+  border-radius: 3px;
+}
+
+.cal-nav:hover {
+  background: #444;
+}
+
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  border-left: thin solid #ccc;
+  border-top: thin solid #ccc;
+}
+
+.cal-dow {
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.8rem;
+  font-family: Avenir, Montserrat, Corbel, 'URW Gothic', source-sans-pro, sans-serif;
+  padding: 0.3rem 0;
+  background: #f0f0f0;
+  border-right: thin solid #ccc;
+  border-bottom: thin solid #ccc;
+}
+
+.cal-cell {
+  min-height: 5rem;
+  padding: 0.25rem;
+  border-right: thin solid #ccc;
+  border-bottom: thin solid #ccc;
+  vertical-align: top;
+}
+
+.cal-cell--empty {
+  background: #fafafa;
+}
+
+.cal-cell--today {
+  background: #ffda61;
+}
+
+.cal-day-num {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 0.2rem;
+}
+
+.cal-cell--today .cal-day-num {
+  color: #c00;
+}
+
+.cal-pill {
+  display: block;
+  background: #c0c0c0;
+  color: black;
+  font-size: 0.7rem;
+  padding: 0.1rem 0.3rem;
+  border-radius: 3px;
+  margin-bottom: 0.15rem;
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cal-pill:hover {
+  background: #444;
+}
+
 @media print {
   a, a:link, a:visited, a:hover, a:active {
     color: inherit !important;
