@@ -1,5 +1,5 @@
 ---
-layout: base
+layout: home
 title: Bay State Radio
 linkName: Home
 weight: 0
