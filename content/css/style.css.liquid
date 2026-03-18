@@ -10,17 +10,17 @@ section {
   margin-bottom: 1ex;
 }
 
-header {
+body > header {
   display: flex;
   flex-direction: column;
 }
 
-header nav {
+body > header nav {
   background-color: #222;
   padding: 0.5rem 0.5in;
 }
 
-header nav ul {
+body > header nav ul {
   display: flex;
   gap: 2rem;
   list-style: none;
@@ -28,37 +28,37 @@ header nav ul {
   padding: 0;
 }
 
-header nav a {
+body> header nav a {
   color: white;
   text-decoration: none;
   font-family: Avenir, Montserrat, Corbel, 'URW Gothic', source-sans-pro, sans-serif;
   font-weight: 600;
 }
 
-header nav a:hover {
+body > header nav a:hover {
   text-decoration: underline;
 }
 
-header nav a[aria-current="page"] {
+body > header nav a[aria-current="page"] {
   font-weight: 900;
 }
 
-header h1 {
+body > header h1 {
   color: white;
   /* font-family: system-ui, sans-serif; */
   font-family: Avenir, Montserrat, Corbel, 'URW Gothic', source-sans-pro, sans-serif;
   padding: 0 0.5in;
 }
 
-main {
+body > main {
   padding: 0.25in 0.5in;
 }
 
-footer {
+body > footer {
   padding: 0 0.5in;
 }
 
-footer::before {
+body > footer::before {
   content: '';
   display: block;
   border-top: thin solid black;
@@ -83,6 +83,11 @@ table.bordered tr:has(td) + tr td {
   border-top: none;
 }
 
+p.byline {
+  font-size: smaller;
+  font-style: italic;
+}
+
 @media screen {
 
   header .hero {
@@ -102,7 +107,7 @@ table.bordered tr:has(td) + tr td {
     height: 200px;
   }
 
-  header h1 {
+  body > header h1 {
     text-shadow: 2px 2px 8px black;
     font-weight: 900;
     font-size: 600%;
@@ -308,11 +313,15 @@ table.bordered tr:has(td) + tr td {
   background: #444;
 }
 
+a, a:link, a:visited, a:hover, a:active {
+  text-decoration: none;
+}
+
 @media print {
   a, a:link, a:visited, a:hover, a:active {
     color: inherit !important;
-    text-decoration: none;
   }
+
   nav,.noprint {
     display: none;
   }

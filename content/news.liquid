@@ -1,0 +1,17 @@
+---
+title: News
+weight: 10
+tags:
+- page
+---
+
+{% for post in collections.post %}
+<article>
+  <header>
+    <h2><a href="{{ post.url }}">{{ post.data.title }}</a></h2>
+    <p class="byline">by {{ post.data.author }} at <time datetime="{{ post.date | date: "%Y-%m-%d"}}">{{ post.date | date: "%Y-%m-%d" }}</time></p>
+  </header>
+
+{% if post.data.page.excerpt %}{{ post.data.page.excerpt }}{% else %}{{ post.templateContent }}{%endif %}
+</article>
+{% endfor %}
