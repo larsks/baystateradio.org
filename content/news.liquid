@@ -13,6 +13,11 @@ tags:
     <p class="byline">by {{ post.data.author }} at <time datetime="{{ post.date | date: "%Y-%m-%d"}}">{{ post.date | date: "%Y-%m-%d" }}</time></p>
   </header>
 
-{% if post.data.page.excerpt %}{{ post.data.page.excerpt | renderTemplate | markdown }}{% else %}{{ post.templateContent }}{%endif %}
+{% if post.data.page.excerpt %}
+{{ post.data.page.excerpt | renderTemplate | markdown }}
+<p>[<a href="{{ post.url }}">continue reading...</a>]</p>
+{% else %}
+{{ post.templateContent }}
+{%endif %}
 </article>
 {% endfor %}
