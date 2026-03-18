@@ -1,7 +1,7 @@
 ---
 title: Amateur Radio Organizations
 linkName: Organizations
-weight: 30
+weight: 40
 tags:
 - page
 ---

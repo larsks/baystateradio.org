@@ -1,7 +1,7 @@
 ---
 title: Radio Nets
 linkName: Nets
-weight: 20
+weight: 30
 tags:
 - page
 ---
