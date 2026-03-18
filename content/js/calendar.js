@@ -108,6 +108,7 @@
       <span class="cal-month-label">${MONTH_NAMES[month]} ${year}</span>
       <button class="cal-nav" id="cal-next" aria-label="Next month">&#8250;</button>
       <button class="cal-nav" id="cal-today" aria-label="Go to today"${isCurrentMonth ? ' disabled' : ''}>Today</button>
+      <a class="cal-subscribe" href="/nets.ics">Subscribe</a>
     </div>
     <div class="cal-grid">`;
 
