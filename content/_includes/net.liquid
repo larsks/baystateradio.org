@@ -12,7 +12,7 @@ layout: base.liquid
   <tr><th>Frequency:</th><td>{{ frequency }}</td></tr>
 {% endif %}
 {% if schedule %}
-  <tr><th>Schedule:</th><td>{{ schedule }}</td></tr>
+  <tr><th>Schedule:</th><td>{{ schedule | formatSchedule }}</td></tr>
 {% endif %}
   </table>
 </section>

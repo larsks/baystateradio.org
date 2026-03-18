@@ -15,7 +15,7 @@ tags:
 {%- for net in collections.net -%}
 <tr>
     <td><a href="{{ net.url }}">{{ net.data.title }}</a></td>
-    <td>{{ net.data.schedule }}</td>
+    <td>{{ net.data.schedule | formatSchedule}}</td>
     <td>{{ net.data.frequency }}</td>
 </tr>
 {%- endfor -%}

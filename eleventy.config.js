@@ -1,4 +1,5 @@
 import markdownPlugin from "@jgarber/eleventy-plugin-markdown";
+import { formatSchedule } from "./src/schedule.js";
 import pluginTOC from "eleventy-plugin-toc";
 import anchorPlugin from "markdown-it-anchor";
 
@@ -50,6 +51,8 @@ export default function (eleventyConfig) {
 	});
 
 	setupPassthroughCopy(eleventyConfig);
+
+	eleventyConfig.addFilter("formatSchedule", formatSchedule);
 
 	// This shortcode is used in the copyright notice to ensure it always shows
 	// the current year.
