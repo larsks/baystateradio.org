@@ -8,6 +8,10 @@
   },
   "scripts": {
     "build": "eleventy",
-    "serve": "eleventy --watch --serve"
+    "serve": "eleventy --watch --serve",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "vitest": "^4.1.0"
   }
 }
