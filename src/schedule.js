@@ -1,5 +1,6 @@
 const DAY_NAMES = {
   Mon: "Monday",
+  Tue: "Tuesday",
   Tues: "Tuesday",
   Wed: "Wednesday",
   Thu: "Thursday",
