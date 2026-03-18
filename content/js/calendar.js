@@ -100,10 +100,14 @@
     const daysInMonth = new Date(year, month + 1, 0).getDate();
     const today = new Date();
 
+    const nowCheck = new Date();
+    const isCurrentMonth = year === nowCheck.getFullYear() && month === nowCheck.getMonth();
+
     let html = `<div class="cal-header">
       <button class="cal-nav" id="cal-prev" aria-label="Previous month">&#8249;</button>
       <span class="cal-month-label">${MONTH_NAMES[month]} ${year}</span>
       <button class="cal-nav" id="cal-next" aria-label="Next month">&#8250;</button>
+      <button class="cal-nav" id="cal-today" aria-label="Go to today"${isCurrentMonth ? ' disabled' : ''}>Today</button>
     </div>
     <div class="cal-grid">`;
 
@@ -147,6 +151,11 @@
       let y = year;
       if (m > 11) { m = 0; y++; }
       renderCalendar(nets, y, m, container);
+    });
+
+    document.getElementById("cal-today").addEventListener("click", () => {
+      const now = new Date();
+      renderCalendar(nets, now.getFullYear(), now.getMonth(), container);
     });
   }
 
