@@ -12,7 +12,8 @@ layout: base.liquid
   <tr><th>Frequency:</th><td>{{ frequency }}</td></tr>
 {% endif %}
 {% if schedule %}
-  <tr><th>Schedule:</th><td>{{ schedule | formatSchedule }}</td></tr>
+  <tr><th>Schedule:</th><td>{{ schedule | formatSchedule }}<br>
+      <a class="noprint" href="/net/{{ page.fileSlug }}.ics">Add to calendar</a></td></tr>
 {% endif %}
   </table>
 </section>
