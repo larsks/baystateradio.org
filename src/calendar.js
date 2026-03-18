@@ -40,7 +40,9 @@ export function getNetsForMonth(events, year, month) {
   const icalMonth = month + 1;
 
   for (const event of events) {
-    const url = event.component.getFirstPropertyValue("url") || "";
+    const uid = event.uid || "";
+    const slug = uid.split("@")[0];
+    const url = slug ? `/net/${slug}/` : "";
     const frequency = event.description || "";
     const title = event.summary;
 

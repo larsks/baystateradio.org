@@ -81,7 +81,7 @@ describe("getNetsForMonth", () => {
     const evt = dayMap[5][0];
     expect(evt.title).toBe("Test Net");
     expect(evt.time).toBe("19:30");
-    expect(evt.url).toBe("/nets/test/");
+    expect(evt.url).toBe("/net/testnet/");
     expect(evt.frequency).toBe("146.520 FM");
   });
 
