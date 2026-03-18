@@ -1,3 +1,4 @@
+import esbuild from "esbuild";
 import markdownPlugin from "@jgarber/eleventy-plugin-markdown";
 import { formatSchedule } from "./src/schedule.js";
 import pluginTOC from "eleventy-plugin-toc";
@@ -35,6 +36,17 @@ function exposeRunMode(eleventyConfig) {
 
 export default function (eleventyConfig) {
 	exposeRunMode(eleventyConfig);
+
+	eleventyConfig.on("eleventy.after", async () => {
+		await esbuild.build({
+			entryPoints: ["src/calendar.js"],
+			bundle: true,
+			outfile: "_site/js/calendar.js",
+			platform: "browser",
+			format: "iife",
+			minify: true,
+		});
+	});
 
 	eleventyConfig.addPlugin(markdownPlugin, {
 		options: {
