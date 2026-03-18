@@ -234,6 +234,7 @@ table.bordered tr:has(td) + tr td {
   grid-template-columns: repeat(7, 1fr);
   border-left: thin solid #ccc;
   border-top: thin solid #ccc;
+  break-after: always;
 }
 
 .cal-dow {
@@ -298,7 +299,7 @@ table.bordered tr:has(td) + tr td {
     color: inherit !important;
     text-decoration: none;
   }
-  nav {
+  nav,.noprint {
     display: none;
   }
 }
