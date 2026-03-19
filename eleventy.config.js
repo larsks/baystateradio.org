@@ -9,7 +9,7 @@ import attrsPlugin from "markdown-it-attrs";
 
 // Helper function for configuring passthrough copy by extension
 function passthroughCopyExtension(eleventyConfig, ext) {
-	[ext, ext.toUpperCase()].forEach((item, _) => {
+	[ext, ext.toUpperCase()].forEach((item) => {
 		eleventyConfig.addPassthroughCopy(`content/**/*.${item}`);
 	});
 }
