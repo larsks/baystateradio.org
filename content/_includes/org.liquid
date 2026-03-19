@@ -4,7 +4,7 @@ layout: base.liquid
 
 <section>
   <table class="bordered">
-    <tr><th>Name:</th><td>{{ title }}{% if abbreviation %} ({{ abbreviation }}){% endif %}</td></tr>
+    <tr><th>Name:</th><td>{{ title }}{% if acronym %} ({{ acronym }}){% endif %}</td></tr>
     <tr><th>URL:</th><td><a href="{{ url }}">{{ url }}</a></td></tr>
 {% if location %}
     <tr><th>Location:</th><td>{{ location }}</td></tr>

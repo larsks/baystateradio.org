@@ -1,6 +1,6 @@
 ---
 title: Boston Amateur Radio Club
-abbreviation: BARC
+acronym: BARC
 url: https://www.barc.org/
 location: Boston, MA
 ---

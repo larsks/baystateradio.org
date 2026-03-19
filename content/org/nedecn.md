@@ -1,6 +1,6 @@
 ---
 title: New England Digital Emergency Communications Network
-abbreviation: NEDECN
+acronym: NEDECN
 url: https://nedecn.org/
 ---
 

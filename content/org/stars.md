@@ -1,6 +1,6 @@
 ---
 title: New England Sci-Tech Amateur Radio Society
-abbreviation: STARS
+acronym: STARS
 url: https://www.stars.radio/
 location: Natick, MA
 ---

@@ -1,6 +1,6 @@
 ---
 title: Port City Amateur Radio Club
-abbreviation: PCARC
+acronym: PCARC
 url: https://w1wqm.org/
 location: Greenland, NH
 ---

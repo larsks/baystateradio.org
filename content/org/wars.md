@@ -1,6 +1,6 @@
 ---
 title: Wellesley Amateur Radio Society
-abbreviation: WARS
+acronym: WARS
 url: https://www.w1tkz.org/about-us/
 location: Wellesley, MA
 ---

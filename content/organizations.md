@@ -20,7 +20,7 @@ To add a new organization to this directory, please use [our request form].
   </div>
   {%- endif -%}
   <div class="org-card-body">
-    <h2><a class="org-card-link" href="{{ org.url }}">{{ org.data.title }}{% if org.data.abbreviation %} ({{ org.data.abbreviation }}){% endif %}</a></h2>
+    <h2><a class="org-card-link" href="{{ org.url }}">{{ org.data.title }}{% if org.data.acronym %} ({{ org.data.acronym }}){% endif %}</a></h2>
     {%- if org.data.url -%}<p><a class="org-card-url" href="{{ org.data.url }}">{{ org.data.url }}</a></p>{%- endif -%}
     {%- if org.data.location -%}<p>{{ org.data.location }}</p>{%- endif -%}
     <p class="org-excerpt">{% if org.data.page.excerpt %}{{ org.data.page.excerpt }}{% else %}{{ org.templateContent | firstParagraph }}{% endif %}</p>

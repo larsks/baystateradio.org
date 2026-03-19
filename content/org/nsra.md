@@ -1,6 +1,6 @@
 ---
 title: North Shore Radio Association
-abbreviation: NSRA
+acronym: NSRA
 url: https://nsradio.org/docs/club-and-repeater/
 location: Peabody, MA
 ---

@@ -1,6 +1,6 @@
 ---
 title: Waltham Amateur Radio Association
-abbreviation: WARA
+acronym: WARA
 url: https://walthamara.org/
 location: Waltham, MA
 ---

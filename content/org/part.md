@@ -1,6 +1,6 @@
 ---
 title: Police Amateur Radio Team of Westford, Massachusetts
-abbreviation: PART
+acronym: PART
 url: https://wb1gof.org/
 location: Westford, MA
 ---

@@ -1,6 +1,6 @@
 ---
 title: Cape Ann Amateur Radio Assocation
-abbreviation: CAARA
+acronym: CAARA
 url: https://caara.net/
 location: Gloucester, MA
 ---

@@ -1,6 +1,6 @@
 ---
 title: Minuteman Repeater Organization
-abbreviation: MMRA
+acronym: MMRA
 url: https://mmra.org/
 location: Boston, MA
 ---
