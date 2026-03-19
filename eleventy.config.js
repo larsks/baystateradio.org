@@ -1,6 +1,7 @@
 import esbuild from "esbuild";
 import markdownPlugin from "@jgarber/eleventy-plugin-markdown";
 import { formatSchedule } from "./src/schedule.js";
+import { resolveOrganization, formatOrganization } from "./src/org.js";
 import pluginTOC from "eleventy-plugin-toc";
 import anchorPlugin from "markdown-it-anchor";
 import attrsPlugin from "markdown-it-attrs";
@@ -70,6 +71,11 @@ export default function (eleventyConfig) {
 	setupPassthroughCopy(eleventyConfig);
 
 	eleventyConfig.addFilter("formatSchedule", formatSchedule);
+	eleventyConfig.addFilter("resolveOrganization", resolveOrganization);
+	eleventyConfig.addFilter("formatOrganization", function (slug) {
+		const orgs = this.context?.getAll()?.collections?.org ?? [];
+		return formatOrganization(slug, orgs);
+	});
 
 	eleventyConfig.addFilter("firstParagraph", (html) => {
 		const match = html.match(/<p>([\s\S]*?)<\/p>/);

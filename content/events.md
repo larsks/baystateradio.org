@@ -11,5 +11,6 @@ The [ARRL] describes Public Service as "Amateur Radio operators [volunteering to
 [arrl]: https://www.arrl.org/
 
 {% for event in collections.event %}
-- <a href="{{event.url}}">{{ event.data.title }}</a>
+- <a href="{{ event.url }}">{{ event.data.title }}</a>
+  {% if event.data.organization %}({{ event.data.organization | formatOrganization }}){% endif %}
 {% endfor %}

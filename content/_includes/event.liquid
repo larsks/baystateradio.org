@@ -9,7 +9,7 @@ layout: base.liquid
     <tr><th>URL:</th><td><a href="{{ url }}">{{ url }}</a></td></tr>
 {% endif %}
 {% if organization %}
-  <tr><th>Organization:</th><td>{{ organization }}</td></tr>
+  <tr><th>Organization:</th><td>{{ organization | formatOrganization }}</td></tr>
 {% endif %}
 {% if schedule %}
   <tr><th>Schedule:</th><td>{{ schedule | formatSchedule }}<br>
