@@ -1,4 +1,20 @@
 /**
+ * Escape HTML special characters to prevent XSS.
+ *
+ * @param {string} text - the text to escape
+ * @returns {string} escaped text
+ */
+export function escHtml(text) {
+	if (!text) return "";
+	return String(text)
+		.replace(/&/g, "&amp;")
+		.replace(/</g, "&lt;")
+		.replace(/>/g, "&gt;")
+		.replace(/"/g, "&quot;")
+		.replace(/'/g, "&#39;");
+}
+
+/**
  * Resolve an organization slug to its collection entry.
  *
  * @param {string} slug - the organization slug (e.g. "caara")
@@ -25,6 +41,8 @@ export function formatOrganization(slug, orgs) {
 	const org = resolveOrganization(slug, orgs);
 	if (!org) return slug;
 	const { title, acronym } = org.data;
-	const label = acronym ? `${title} (${acronym})` : title;
-	return org.url ? `<a href="${org.url}">${label}</a>` : label;
+	const escapedTitle = escHtml(title);
+	const escapedAcronym = escHtml(acronym);
+	const label = escapedAcronym ? `${escapedTitle} (${escapedAcronym})` : escapedTitle;
+	return org.url ? `<a href="${escHtml(org.url)}">${label}</a>` : label;
 }
