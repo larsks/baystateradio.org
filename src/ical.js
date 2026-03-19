@@ -108,6 +108,9 @@ export function netToVevent(net, tzid, dtstamp) {
   } else if (/^-?\d/.test(dayPart)) {
     // Monthly ordinal: "1Mon", "2Tue", "-1Fri"
     const m = dayPart.match(/^(-?\d+)(\w+)$/);
+    if (!m) {
+      throw new Error(`Invalid monthly ordinal schedule format: ${dayPart}`);
+    }
     const n = parseInt(m[1]);
     const abbr = m[2];
     const startDate = findMonthlyOrdinalStart(n, abbr);
@@ -116,6 +119,9 @@ export function netToVevent(net, tzid, dtstamp) {
   } else if (/\/\d+$/.test(dayPart)) {
     // N-weekly interval: "Tue/2", "Wed/3"
     const m = dayPart.match(/^(\w+)\/(\d+)$/);
+    if (!m) {
+      throw new Error(`Invalid N-weekly schedule format: ${dayPart}`);
+    }
     const abbr = m[1];
     const interval = parseInt(m[2]);
     const firstDate = findFirstOccurrence([abbr]);
