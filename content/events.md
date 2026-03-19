@@ -1,5 +1,5 @@
 ---
-title: Public Service Opportunities
+title: Public Service Events
 linkName: Public Service
 weight: 20
 tags:
