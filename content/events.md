@@ -20,7 +20,7 @@ The [ARRL] describes Public Service as "Amateur Radio operators [volunteering to
 No events this month.
 {% else %}
 {% for item in month.events %}
-- <span{% if item.isPast %} class="event-past"{% endif %}>{{ item.event.data.schedule | formatEventDate }} - <a href="{{ item.event.url }}">{{ item.event.data.title }}</a>{% if item.event.data.organization %} ({{ item.event.data.organization | formatOrganization }}){% endif %}</span>
+- <span{% if item.isPast %} class="event-past"{% endif %}>{{ item.event.data.schedule | formatEventDate }} - <a href="{{ item.event.url }}">{{ item.event.data.title }}</a></span>
 {% endfor %}
 {% endif %}
 {% endfor %}
