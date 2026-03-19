@@ -91,9 +91,8 @@ function buildCalendarHtml(events, year, month) {
 	const daysInMonth = new Date(year, month + 1, 0).getDate();
 	const today = new Date();
 
-	const nowCheck = new Date();
 	const isCurrentMonth =
-		year === nowCheck.getFullYear() && month === nowCheck.getMonth();
+		year === today.getFullYear() && month === today.getMonth();
 
 	let html = `<div class="cal-header">
     <button class="cal-nav" id="cal-prev" aria-label="Previous month">&#8249;</button>
