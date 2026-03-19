@@ -63,6 +63,21 @@ function findFirstOccurrence(days) {
   return date;
 }
 
+function findMonthlyOrdinalStart(n, dayAbbr) {
+  const target = DAY_OF_WEEK[dayAbbr];
+  const year = ANCHOR.getFullYear();
+  const month = ANCHOR.getMonth();
+  if (n > 0) {
+    const dow = new Date(year, month, 1).getDay();
+    const offset = (target - dow + 7) % 7;
+    return new Date(year, month, 1 + offset + (n - 1) * 7);
+  } else {
+    const last = new Date(year, month + 1, 0);
+    const offset = (last.getDay() - target + 7) % 7;
+    return new Date(year, month, last.getDate() - offset + (n + 1) * 7);
+  }
+}
+
 export function netToVevent(net, tzid, dtstamp) {
   const { title, schedule, frequency, url } = net.data;
   const [dayPart, time, durationStr] = schedule.trim().split(" ");
@@ -87,6 +102,22 @@ export function netToVevent(net, tzid, dtstamp) {
       minute,
     );
     rrule = "RRULE:FREQ=DAILY";
+  } else if (/^-?\d/.test(dayPart)) {
+    // Monthly ordinal: "1Mon", "2Tue", "-1Fri"
+    const m = dayPart.match(/^(-?\d+)(\w+)$/);
+    const n = parseInt(m[1]);
+    const abbr = m[2];
+    const startDate = findMonthlyOrdinalStart(n, abbr);
+    dtstart = formatIcalDateTime(startDate.getFullYear(), startDate.getMonth() + 1, startDate.getDate(), hour, minute);
+    rrule = `RRULE:FREQ=MONTHLY;BYDAY=${n}${BYDAY[abbr]}`;
+  } else if (/\/\d+$/.test(dayPart)) {
+    // N-weekly interval: "Tue/2", "Wed/3"
+    const m = dayPart.match(/^(\w+)\/(\d+)$/);
+    const abbr = m[1];
+    const interval = parseInt(m[2]);
+    const firstDate = findFirstOccurrence([abbr]);
+    dtstart = formatIcalDateTime(firstDate.getFullYear(), firstDate.getMonth() + 1, firstDate.getDate(), hour, minute);
+    rrule = `RRULE:FREQ=WEEKLY;INTERVAL=${interval};BYDAY=${BYDAY[abbr]}`;
   } else {
     const days = dayPart.split(",");
     const firstDate = findFirstOccurrence(days);

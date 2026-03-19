@@ -152,6 +152,46 @@ describe("netToVevent", () => {
     expect(vevent).toContain("DTSTART;TZID=America/New_York:20260106T200000");
     expect(vevent).toContain("RRULE:FREQ=WEEKLY;BYDAY=TU");
   });
+
+  it("monthly ordinal 1Mon → DTSTART=20260105, RRULE FREQ=MONTHLY;BYDAY=1MO", () => {
+    const net = makeNet({ schedule: "1Mon 08:00 1h" });
+    const vevent = netToVevent(net, TZID, FIXED_DTSTAMP);
+    // First Monday of Jan 2026 is Jan 5
+    expect(vevent).toContain("DTSTART;TZID=America/New_York:20260105T080000");
+    expect(vevent).toContain("RRULE:FREQ=MONTHLY;BYDAY=1MO");
+  });
+
+  it("monthly ordinal 2Tue → DTSTART=20260113, RRULE FREQ=MONTHLY;BYDAY=2TU", () => {
+    const net = makeNet({ schedule: "2Tue 08:00 1h" });
+    const vevent = netToVevent(net, TZID, FIXED_DTSTAMP);
+    // Second Tuesday of Jan 2026 is Jan 13
+    expect(vevent).toContain("DTSTART;TZID=America/New_York:20260113T080000");
+    expect(vevent).toContain("RRULE:FREQ=MONTHLY;BYDAY=2TU");
+  });
+
+  it("monthly ordinal -1Fri → DTSTART=20260130, RRULE FREQ=MONTHLY;BYDAY=-1FR", () => {
+    const net = makeNet({ schedule: "-1Fri 09:00 1h" });
+    const vevent = netToVevent(net, TZID, FIXED_DTSTAMP);
+    // Last Friday of Jan 2026 is Jan 30
+    expect(vevent).toContain("DTSTART;TZID=America/New_York:20260130T090000");
+    expect(vevent).toContain("RRULE:FREQ=MONTHLY;BYDAY=-1FR");
+  });
+
+  it("bi-weekly Tue/2 → DTSTART=20260106, RRULE FREQ=WEEKLY;INTERVAL=2;BYDAY=TU", () => {
+    const net = makeNet({ schedule: "Tue/2 18:00 2h" });
+    const vevent = netToVevent(net, TZID, FIXED_DTSTAMP);
+    // First Tue on/after 2026-01-01 is Jan 6
+    expect(vevent).toContain("DTSTART;TZID=America/New_York:20260106T180000");
+    expect(vevent).toContain("RRULE:FREQ=WEEKLY;INTERVAL=2;BYDAY=TU");
+  });
+
+  it("tri-weekly Wed/3 → DTSTART=20260107, RRULE FREQ=WEEKLY;INTERVAL=3;BYDAY=WE", () => {
+    const net = makeNet({ schedule: "Wed/3 18:00 2h" });
+    const vevent = netToVevent(net, TZID, FIXED_DTSTAMP);
+    // First Wed on/after 2026-01-01 is Jan 7
+    expect(vevent).toContain("DTSTART;TZID=America/New_York:20260107T180000");
+    expect(vevent).toContain("RRULE:FREQ=WEEKLY;INTERVAL=3;BYDAY=WE");
+  });
 });
 
 describe("RFC 5545 validation", () => {
@@ -161,6 +201,8 @@ describe("RFC 5545 validation", () => {
       makeNet({ fileSlug: "tuenet", schedule: "Tue 20:00 30m", title: "Tue Net" }),
       makeNet({ fileSlug: "dailynet", schedule: "* 08:00 15m", title: "Daily Net" }),
       makeNet({ fileSlug: "oncenet", schedule: "2026-06-12 12:00 60m", title: "Once Net" }),
+      makeNet({ fileSlug: "ordinalnet", schedule: "1Mon 08:00 1h", title: "Ordinal Net" }),
+      makeNet({ fileSlug: "biweeklynet", schedule: "Tue/2 18:00 2h", title: "Biweekly Net" }),
     ];
     const icsString = buildFullCalendar(fixtures);
     const parsed = ICAL.parse(icsString);
