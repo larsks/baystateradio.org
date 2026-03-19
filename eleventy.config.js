@@ -2,6 +2,7 @@ import esbuild from "esbuild";
 import markdownPlugin from "@jgarber/eleventy-plugin-markdown";
 import { formatSchedule } from "./src/schedule.js";
 import { resolveOrganization, formatOrganization } from "./src/org.js";
+import { eventsByMonth } from "./src/events.js";
 import pluginTOC from "eleventy-plugin-toc";
 import anchorPlugin from "markdown-it-anchor";
 import attrsPlugin from "markdown-it-attrs";
@@ -70,6 +71,7 @@ export default function (eleventyConfig) {
 
 	setupPassthroughCopy(eleventyConfig);
 
+	eleventyConfig.addFilter("eventsByMonth", eventsByMonth);
 	eleventyConfig.addFilter("formatSchedule", formatSchedule);
 	eleventyConfig.addFilter("resolveOrganization", resolveOrganization);
 	eleventyConfig.addFilter("formatOrganization", function (slug) {
