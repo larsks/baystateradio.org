@@ -33,9 +33,10 @@ function addMinutes(h, m, minutes) {
 }
 
 function formatDayPart(day) {
-  if (day === "*") {
-    return "Every day";
-  }
+  // Every day wildcard
+  if (day === "*") return "Every day";
+
+  // ISO date format: "2026-06-12"
   if (/^\d{4}-\d{2}-\d{2}$/.test(day)) {
     const [year, month, dayNum] = day.split("-").map(Number);
     const date = new Date(year, month - 1, dayNum);
@@ -45,6 +46,7 @@ function formatDayPart(day) {
       year: "numeric",
     });
   }
+
   // Monthly ordinal: "1Mon", "2Tue", "-1Fri"
   if (/^-?\d/.test(day)) {
     const m = day.match(/^(-?\d+)(\w+)$/);
@@ -55,6 +57,7 @@ function formatDayPart(day) {
     const ordWord = ordinals[n] ?? `${n}th`;
     return `${ordWord} ${name} of every month`;
   }
+
   // N-weekly interval: "Tue/2", "Wed/3"
   if (/\/\d+$/.test(day)) {
     const m = day.match(/^(\w+)\/(\d+)$/);
@@ -65,6 +68,8 @@ function formatDayPart(day) {
     const intWord = intervalWords[interval] ?? `every ${interval}th`;
     return `Every ${intWord} ${name}`;
   }
+
+  // Comma-separated weekdays: "Mon", "Mon,Wed,Fri"
   const abbrs = day.split(",");
   const names = abbrs.map((a) => DAY_NAMES[a] ?? a);
   if (names.length === 1) return names[0];
