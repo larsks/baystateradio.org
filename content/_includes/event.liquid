@@ -1,0 +1,23 @@
+---
+layout: base.liquid
+---
+
+<section>
+  <table class="bordered">
+    <tr><th>Name:</th><td>{{ title }}</td></tr>
+{% if url %}
+    <tr><th>URL:</th><td><a href="{{ url }}">{{ url }}</a></td></tr>
+{% endif %}
+{% if organization %}
+  <tr><th>Organization:</th><td>{{ organization }}</td></tr>
+{% endif %}
+{% if schedule %}
+  <tr><th>Schedule:</th><td>{{ schedule | formatSchedule }}<br>
+      <a class="noprint" href="/event/{{ page.fileSlug }}.ics">Add to calendar</a></td></tr>
+{% endif %}
+  </table>
+</section>
+
+<section>
+  {{ content }}
+</section>
