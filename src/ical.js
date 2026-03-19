@@ -73,6 +73,13 @@ function findMonthlyOrdinalStart(n, dayAbbr) {
 	}
 }
 
+function buildRRule(freq, opts = {}) {
+	const params = Object.entries(opts)
+		.map(([k, v]) => `;${k}=${v}`)
+		.join("");
+	return `RRULE:FREQ=${freq}${params}`;
+}
+
 export function netToVevent(net, tzid, dtstamp) {
 	const { title, schedule, frequency, url } = net.data;
 	const [dayPart, time, durationStr] = schedule.trim().split(" ");
@@ -96,7 +103,7 @@ export function netToVevent(net, tzid, dtstamp) {
 			hour,
 			minute,
 		);
-		rrule = "RRULE:FREQ=DAILY";
+		rrule = buildRRule("DAILY");
 	} else if (/^-?\d/.test(dayPart)) {
 		// Monthly ordinal: "1Mon", "2Tue", "-1Fri"
 		const m = dayPart.match(/^(-?\d+)(\w+)$/);
@@ -113,7 +120,7 @@ export function netToVevent(net, tzid, dtstamp) {
 			hour,
 			minute,
 		);
-		rrule = `RRULE:FREQ=MONTHLY;BYDAY=${n}${DAYS[abbr].byday}`;
+		rrule = buildRRule("MONTHLY", { BYDAY: `${n}${DAYS[abbr].byday}` });
 	} else if (/\/\d+$/.test(dayPart)) {
 		// N-weekly interval: "Tue/2", "Wed/3"
 		const m = dayPart.match(/^(\w+)\/(\d+)$/);
@@ -130,7 +137,7 @@ export function netToVevent(net, tzid, dtstamp) {
 			hour,
 			minute,
 		);
-		rrule = `RRULE:FREQ=WEEKLY;INTERVAL=${interval};BYDAY=${DAYS[abbr].byday}`;
+		rrule = buildRRule("WEEKLY", { INTERVAL: interval, BYDAY: DAYS[abbr].byday });
 	} else {
 		const days = dayPart.split(",");
 		const firstDate = findFirstOccurrence(days);
@@ -142,7 +149,7 @@ export function netToVevent(net, tzid, dtstamp) {
 			minute,
 		);
 		const byday = days.map((d) => DAYS[d].byday).join(",");
-		rrule = `RRULE:FREQ=WEEKLY;BYDAY=${byday}`;
+		rrule = buildRRule("WEEKLY", { BYDAY: byday });
 	}
 
 	const lines = [
