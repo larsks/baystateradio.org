@@ -25,6 +25,6 @@ export function formatOrganization(slug, orgs) {
 	const org = resolveOrganization(slug, orgs);
 	if (!org) return slug;
 	const { title, acronym } = org.data;
-	const label = `${title} (${acronym})`;
+	const label = acronym ? `${title} (${acronym})` : title;
 	return org.url ? `<a href="${org.url}">${label}</a>` : label;
 }

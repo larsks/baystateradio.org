@@ -55,4 +55,16 @@ describe("formatOrganization", () => {
 	it("returns empty string for undefined slug", () => {
 		expect(formatOrganization(undefined, orgs)).toBe("");
 	});
+
+	it("returns linked title only when org has a url but no acronym", () => {
+		const orgsNoAcronym = [{ fileSlug: "hamb", data: { title: "Ham Radio Boston" }, url: "/org/hamb/" }];
+		expect(formatOrganization("hamb", orgsNoAcronym)).toBe(
+			'<a href="/org/hamb/">Ham Radio Boston</a>',
+		);
+	});
+
+	it("returns plain title only when org has no url and no acronym", () => {
+		const orgsNoAcronym = [{ fileSlug: "hamb", data: { title: "Ham Radio Boston" } }];
+		expect(formatOrganization("hamb", orgsNoAcronym)).toBe("Ham Radio Boston");
+	});
 });
