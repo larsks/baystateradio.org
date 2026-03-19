@@ -5,12 +5,25 @@ function makeEvent(schedule, title = "Test Event") {
 	return { data: { schedule, title }, url: "/event/test/" };
 }
 
+// "now" anchored to 2026-03-19 for deterministic tests
+const NOW = new Date(2026, 2, 19); // March 19 2026
+
 describe("eventsByMonth", () => {
-	it("returns 12 month objects", () => {
-		const result = eventsByMonth([], 2026);
-		expect(result).toHaveLength(12);
-		expect(result[0].name).toBe("January");
-		expect(result[11].name).toBe("December");
+	it("returns 14 month objects", () => {
+		const result = eventsByMonth([], NOW);
+		expect(result).toHaveLength(14);
+	});
+
+	it("starts from the previous month", () => {
+		const result = eventsByMonth([], NOW);
+		expect(result[0].name).toBe("February");
+		expect(result[0].year).toBe(2026);
+	});
+
+	it("ends 12 months ahead", () => {
+		const result = eventsByMonth([], NOW);
+		expect(result[13].name).toBe("March");
+		expect(result[13].year).toBe(2027);
 	});
 
 	it("groups events into correct months", () => {
@@ -18,18 +31,22 @@ describe("eventsByMonth", () => {
 			makeEvent("2026-04-20", "Boston Marathon"),
 			makeEvent("2026-09-19", "Ride to Defeat ALS"),
 		];
-		const result = eventsByMonth(events, 2026);
-		expect(result[3].events).toHaveLength(1);
-		expect(result[3].events[0].data.title).toBe("Boston Marathon");
-		expect(result[8].events).toHaveLength(1);
-		expect(result[8].events[0].data.title).toBe("Ride to Defeat ALS");
+		const result = eventsByMonth(events, NOW);
+		const april = result.find((m) => m.name === "April" && m.year === 2026);
+		const sept = result.find(
+			(m) => m.name === "September" && m.year === 2026,
+		);
+		expect(april.events).toHaveLength(1);
+		expect(april.events[0].event.data.title).toBe("Boston Marathon");
+		expect(sept.events).toHaveLength(1);
+		expect(sept.events[0].event.data.title).toBe("Ride to Defeat ALS");
 	});
 
 	it("leaves empty months with an empty events array", () => {
-		const events = [makeEvent("2026-04-20")];
-		const result = eventsByMonth(events, 2026);
-		expect(result[0].events).toHaveLength(0);
-		expect(result[1].events).toHaveLength(0);
+		const result = eventsByMonth([], NOW);
+		for (const month of result) {
+			expect(month.events).toHaveLength(0);
+		}
 	});
 
 	it("sorts events by date within a month", () => {
@@ -38,11 +55,50 @@ describe("eventsByMonth", () => {
 			makeEvent("2026-04-05", "Early April"),
 			makeEvent("2026-04-15", "Mid April"),
 		];
-		const result = eventsByMonth(events, 2026);
-		const april = result[3].events;
-		expect(april[0].data.title).toBe("Early April");
-		expect(april[1].data.title).toBe("Mid April");
-		expect(april[2].data.title).toBe("Late April");
+		const result = eventsByMonth(events, NOW);
+		const april = result.find((m) => m.name === "April" && m.year === 2026);
+		expect(april.events[0].event.data.title).toBe("Early April");
+		expect(april.events[1].event.data.title).toBe("Mid April");
+		expect(april.events[2].event.data.title).toBe("Late April");
+	});
+
+	it("marks past events with isPast=true", () => {
+		const events = [
+			makeEvent("2026-02-14", "Past Event"),
+			makeEvent("2026-03-18", "Yesterday"),
+		];
+		const result = eventsByMonth(events, NOW);
+		const feb = result.find((m) => m.name === "February" && m.year === 2026);
+		const march = result.find(
+			(m) => m.name === "March" && m.year === 2026,
+		);
+		expect(feb.events[0].isPast).toBe(true);
+		expect(march.events[0].isPast).toBe(true);
+	});
+
+	it("marks today and future events with isPast=false", () => {
+		const events = [
+			makeEvent("2026-03-19", "Today"),
+			makeEvent("2026-04-01", "Future"),
+		];
+		const result = eventsByMonth(events, NOW);
+		const march = result.find(
+			(m) => m.name === "March" && m.year === 2026,
+		);
+		const april = result.find((m) => m.name === "April" && m.year === 2026);
+		expect(march.events[0].isPast).toBe(false);
+		expect(april.events[0].isPast).toBe(false);
+	});
+
+	it("excludes events outside the 14-month window", () => {
+		const events = [
+			makeEvent("2026-01-01", "Too early"),
+			makeEvent("2027-04-01", "Too late"),
+			makeEvent("2026-04-20", "In window"),
+		];
+		const result = eventsByMonth(events, NOW);
+		const total = result.reduce((sum, m) => sum + m.events.length, 0);
+		expect(total).toBe(1);
 	});
 
 	it("skips events with non-ISO date patterns", () => {
@@ -51,18 +107,7 @@ describe("eventsByMonth", () => {
 			makeEvent("* * * * *", "Cron Event"),
 			makeEvent("2026-04-20", "Real Event"),
 		];
-		const result = eventsByMonth(events, 2026);
-		const total = result.reduce((sum, m) => sum + m.events.length, 0);
-		expect(total).toBe(1);
-	});
-
-	it("skips events in a different year", () => {
-		const events = [
-			makeEvent("2025-04-20", "Last Year"),
-			makeEvent("2027-04-20", "Next Year"),
-			makeEvent("2026-04-20", "This Year"),
-		];
-		const result = eventsByMonth(events, 2026);
+		const result = eventsByMonth(events, NOW);
 		const total = result.reduce((sum, m) => sum + m.events.length, 0);
 		expect(total).toBe(1);
 	});
@@ -72,15 +117,17 @@ describe("eventsByMonth", () => {
 			{ data: { title: "No Schedule" }, url: "/event/none/" },
 			makeEvent("2026-04-20", "Has Schedule"),
 		];
-		const result = eventsByMonth(events, 2026);
+		const result = eventsByMonth(events, NOW);
 		const total = result.reduce((sum, m) => sum + m.events.length, 0);
 		expect(total).toBe(1);
 	});
 
-	it("uses current year when year is not provided", () => {
+	it("uses current date when now is not provided", () => {
 		const currentYear = new Date().getFullYear();
-		const events = [makeEvent(`${currentYear}-06-15`)];
-		const result = eventsByMonth(events);
-		expect(result[5].events).toHaveLength(1);
+		const currentMonth = new Date().getMonth() + 1;
+		const schedule = `${currentYear}-${String(currentMonth).padStart(2, "0")}-15`;
+		const result = eventsByMonth([makeEvent(schedule)]);
+		const total = result.reduce((sum, m) => sum + m.events.length, 0);
+		expect(total).toBe(1);
 	});
 });

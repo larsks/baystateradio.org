@@ -14,13 +14,13 @@ The [ARRL] describes Public Service as "Amateur Radio operators [volunteering to
 
 {% assign schedule = collections.event | eventsByMonth %}
 {% for month in schedule %}
-### {{ month.name }}
+### {{ month.name }} {{ month.year }}
 
 {% if month.events.size == 0 %}
 No events this month.
 {% else %}
-{% for event in month.events %}
-- {{ event.data.schedule | formatEventDate }} - <a href="{{ event.url }}">{{ event.data.title }}</a>{% if event.data.organization %} ({{ event.data.organization | formatOrganization }}){% endif %}
+{% for item in month.events %}
+- <span{% if item.isPast %} class="event-past"{% endif %}>{{ item.event.data.schedule | formatEventDate }} - <a href="{{ item.event.url }}">{{ item.event.data.title }}</a>{% if item.event.data.organization %} ({{ item.event.data.organization | formatOrganization }}){% endif %}</span>
 {% endfor %}
 {% endif %}
 {% endfor %}
