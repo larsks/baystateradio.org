@@ -52,6 +52,18 @@ function formatDayPart(day) {
   return `${names.slice(0, -1).join(", ")}, and ${names[names.length - 1]}`;
 }
 
+export function formatEventDate(schedule) {
+  if (!schedule) return "";
+  const datePart = schedule.trim().split(" ")[0];
+  const match = datePart.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (!match) return "";
+  const [, year, month, day] = match;
+  const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+  const monthName = date.toLocaleString("en-US", { month: "long" });
+  const weekday = date.toLocaleString("en-US", { weekday: "long" });
+  return `${monthName} ${parseInt(day)} (${weekday})`;
+}
+
 export function formatSchedule(input) {
   const [day, time, duration] = input.trim().split(" ");
   const [hStr, mStr] = time.split(":");

@@ -1,5 +1,20 @@
-import { formatSchedule } from "./schedule.js";
+import { formatSchedule, formatEventDate } from "./schedule.js";
 import { describe, it, expect } from "vitest";
+
+describe("formatEventDate", () => {
+  it("ISO date schedule", () => {
+    expect(formatEventDate("2026-03-28 08:00 4h")).toBe("March 28 (Saturday)");
+  });
+  it("empty input", () => {
+    expect(formatEventDate("")).toBe("");
+  });
+  it("null input", () => {
+    expect(formatEventDate(null)).toBe("");
+  });
+  it("non-ISO schedule (weekday)", () => {
+    expect(formatEventDate("Mon 18:00 60m")).toBe("");
+  });
+});
 
 describe("formatSchedule", () => {
   it("single weekday", () => {

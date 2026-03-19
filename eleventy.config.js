@@ -1,6 +1,6 @@
 import esbuild from "esbuild";
 import markdownPlugin from "@jgarber/eleventy-plugin-markdown";
-import { formatSchedule } from "./src/schedule.js";
+import { formatSchedule, formatEventDate } from "./src/schedule.js";
 import { resolveOrganization, formatOrganization } from "./src/org.js";
 import { eventsByMonth } from "./src/events.js";
 import pluginTOC from "eleventy-plugin-toc";
@@ -73,6 +73,7 @@ export default function (eleventyConfig) {
 
 	eleventyConfig.addFilter("eventsByMonth", eventsByMonth);
 	eleventyConfig.addFilter("formatSchedule", formatSchedule);
+	eleventyConfig.addFilter("formatEventDate", formatEventDate);
 	eleventyConfig.addFilter("resolveOrganization", resolveOrganization);
 	eleventyConfig.addFilter("formatOrganization", function (slug) {
 		const orgs = this.context?.getAll()?.collections?.org ?? [];
