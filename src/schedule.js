@@ -45,6 +45,26 @@ function formatDayPart(day) {
       year: "numeric",
     });
   }
+  // Monthly ordinal: "1Mon", "2Tue", "-1Fri"
+  if (/^-?\d/.test(day)) {
+    const m = day.match(/^(-?\d+)(\w+)$/);
+    const n = parseInt(m[1]);
+    const abbr = m[2];
+    const name = DAY_NAMES[abbr] ?? abbr;
+    const ordinals = { 1: "First", 2: "Second", 3: "Third", 4: "Fourth", 5: "Fifth", [-1]: "Last" };
+    const ordWord = ordinals[n] ?? `${n}th`;
+    return `${ordWord} ${name} of every month`;
+  }
+  // N-weekly interval: "Tue/2", "Wed/3"
+  if (/\/\d+$/.test(day)) {
+    const m = day.match(/^(\w+)\/(\d+)$/);
+    const abbr = m[1];
+    const interval = parseInt(m[2]);
+    const name = DAY_NAMES[abbr] ?? abbr;
+    const intervalWords = { 2: "other", 3: "third", 4: "fourth", 5: "fifth" };
+    const intWord = intervalWords[interval] ?? `every ${interval}th`;
+    return `Every ${intWord} ${name}`;
+  }
   const abbrs = day.split(",");
   const names = abbrs.map((a) => DAY_NAMES[a] ?? a);
   if (names.length === 1) return names[0];

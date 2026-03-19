@@ -37,4 +37,29 @@ describe("formatSchedule", () => {
       "Every day from 8:00pm to 9:00pm",
     );
   });
+  it("monthly ordinal first", () => {
+    expect(formatSchedule("1Mon 08:00 1h")).toBe(
+      "First Monday of every month from 8:00am to 9:00am",
+    );
+  });
+  it("monthly ordinal second", () => {
+    expect(formatSchedule("2Tue 08:00 1h")).toBe(
+      "Second Tuesday of every month from 8:00am to 9:00am",
+    );
+  });
+  it("monthly ordinal last", () => {
+    expect(formatSchedule("-1Fri 09:00 1h")).toBe(
+      "Last Friday of every month from 9:00am to 10:00am",
+    );
+  });
+  it("bi-weekly interval", () => {
+    expect(formatSchedule("Tue/2 18:00 2h")).toBe(
+      "Every other Tuesday from 6:00pm to 8:00pm",
+    );
+  });
+  it("tri-weekly interval", () => {
+    expect(formatSchedule("Wed/3 18:00 2h")).toBe(
+      "Every third Wednesday from 6:00pm to 8:00pm",
+    );
+  });
 });
