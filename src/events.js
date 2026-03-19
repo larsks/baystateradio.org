@@ -33,11 +33,10 @@ export function eventsByMonth(events, now) {
 	}
 
 	for (const month of months) {
-		month.events.sort((a, b) =>
-			a.event.data.schedule
-				.split(" ")[0]
-				.localeCompare(b.event.data.schedule.split(" ")[0]),
-		);
+		month.events = month.events
+			.map((item) => [item, item.event.data.schedule.split(" ")[0]])
+			.sort((a, b) => a[1].localeCompare(b[1]))
+			.map((item) => item[0]);
 	}
 
 	return months;
