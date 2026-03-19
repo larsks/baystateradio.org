@@ -3,6 +3,7 @@ import markdownPlugin from "@jgarber/eleventy-plugin-markdown";
 import { formatSchedule } from "./src/schedule.js";
 import pluginTOC from "eleventy-plugin-toc";
 import anchorPlugin from "markdown-it-anchor";
+import attrsPlugin from "markdown-it-attrs";
 
 // Helper function for configuring passthrough copy by extension
 function passthroughCopyExtension(eleventyConfig, ext) {
@@ -57,7 +58,7 @@ export default function (eleventyConfig) {
 			typographer: false,
 			breaks: false,
 		},
-		plugins: [anchorPlugin],
+		plugins: [anchorPlugin, attrsPlugin],
 	});
 	eleventyConfig.addPlugin(pluginTOC, {
 		ul: true,

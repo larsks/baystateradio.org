@@ -264,7 +264,6 @@ article:not(:last-of-type) {
   grid-template-columns: repeat(7, minmax(0, 1fr));
   border-left: thin solid #ccc;
   border-top: thin solid #ccc;
-  break-after: always;
 }
 
 .cal-dow {
@@ -364,5 +363,9 @@ a, a:link, a:visited, a:hover, a:active {
 
   nav,.noprint {
     display: none;
+  }
+
+  h2.calendar {
+    break-before: always;
   }
 }
