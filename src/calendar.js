@@ -139,30 +139,9 @@ function renderCalendar(events, year, month, container) {
 	const html = buildCalendarHtml(events, year, month);
 	container.innerHTML = html;
 
-	document.getElementById("cal-prev").addEventListener("click", () => {
-		let m = month - 1;
-		let y = year;
-		if (m < 0) {
-			m = 11;
-			y--;
-		}
-		renderCalendar(events, y, m, container);
-	});
-
-	document.getElementById("cal-next").addEventListener("click", () => {
-		let m = month + 1;
-		let y = year;
-		if (m > 11) {
-			m = 0;
-			y++;
-		}
-		renderCalendar(events, y, m, container);
-	});
-
-	document.getElementById("cal-today").addEventListener("click", () => {
-		const now = new Date();
-		renderCalendar(events, now.getFullYear(), now.getMonth(), container);
-	});
+	// Store current year/month as data attributes for event delegation
+	container.dataset.currentYear = year;
+	container.dataset.currentMonth = month;
 }
 
 function init() {
@@ -175,6 +154,39 @@ function init() {
 			const events = parseIcs(icsText);
 			const now = new Date();
 			renderCalendar(events, now.getFullYear(), now.getMonth(), container);
+
+			// Event delegation: single click listener for all navigation buttons
+			container.addEventListener("click", (e) => {
+				const target = e.target;
+
+				// Check if a navigation button was clicked
+				if (target.id === "cal-prev" || target.id === "cal-next" || target.id === "cal-today") {
+					const currentYear = parseInt(container.dataset.currentYear, 10);
+					const currentMonth = parseInt(container.dataset.currentMonth, 10);
+					let newYear = currentYear;
+					let newMonth = currentMonth;
+
+					if (target.id === "cal-prev") {
+						newMonth = currentMonth - 1;
+						if (newMonth < 0) {
+							newMonth = 11;
+							newYear--;
+						}
+					} else if (target.id === "cal-next") {
+						newMonth = currentMonth + 1;
+						if (newMonth > 11) {
+							newMonth = 0;
+							newYear++;
+						}
+					} else if (target.id === "cal-today") {
+						const today = new Date();
+						newYear = today.getFullYear();
+						newMonth = today.getMonth();
+					}
+
+					renderCalendar(events, newYear, newMonth, container);
+				}
+			});
 		})
 		.catch((err) => {
 			console.error("Failed to load nets.ics:", err);
