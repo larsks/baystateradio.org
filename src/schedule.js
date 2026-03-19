@@ -53,7 +53,10 @@ function formatDayPart(day) {
     const n = parseInt(m[1]);
     const abbr = m[2];
     const name = DAY_NAMES[abbr] ?? abbr;
-    const ordinals = { 1: "First", 2: "Second", 3: "Third", 4: "Fourth", 5: "Fifth", [-1]: "Last" };
+    if (n === -1) {
+      return `Last ${name} of every month`;
+    }
+    const ordinals = { 1: "First", 2: "Second", 3: "Third", 4: "Fourth", 5: "Fifth" };
     const ordWord = ordinals[n] ?? `${n}th`;
     return `${ordWord} ${name} of every month`;
   }
