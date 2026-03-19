@@ -1,6 +1,6 @@
 import ICAL from "ical.js";
 
-const DAY_NAMES = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const DAY_ABBREVS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const MONTH_NAMES = [
 	"January",
 	"February",
@@ -104,7 +104,7 @@ function buildCalendarHtml(events, year, month) {
   </div>
   <div class="cal-grid">`;
 
-	for (const name of DAY_NAMES) {
+	for (const name of DAY_ABBREVS) {
 		html += `<div class="cal-dow">${name}</div>`;
 	}
 
