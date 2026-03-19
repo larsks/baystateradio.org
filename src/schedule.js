@@ -1,3 +1,5 @@
+import { parseDuration } from "./duration.js";
+
 const DAY_NAMES = {
   Mon: "Monday",
   Tue: "Tuesday",
@@ -15,16 +17,6 @@ function format12h(h, m) {
   if (h < 12) return `${h}:${mm}am`;
   if (h === 12) return `12:${mm}pm`;
   return `${h - 12}:${mm}pm`;
-}
-
-function parseDuration(duration) {
-  if (duration.endsWith("m")) {
-    return parseInt(duration, 10);
-  }
-  if (duration.endsWith("h")) {
-    return Math.round(parseFloat(duration) * 60);
-  }
-  throw new Error(`Unknown duration format: ${duration}`);
 }
 
 function addMinutes(h, m, minutes) {
