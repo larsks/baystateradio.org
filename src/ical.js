@@ -1,9 +1,12 @@
-const BYDAY = {
-  Mon: "MO", Tue: "TU", Tues: "TU", Wed: "WE", Thu: "TH", Fri: "FR", Sat: "SA", Sun: "SU",
-};
-
-const DAY_OF_WEEK = {
-  Sun: 0, Mon: 1, Tue: 2, Tues: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6,
+const DAYS = {
+  Mon: { byday: "MO", dayOfWeek: 1 },
+  Tue: { byday: "TU", dayOfWeek: 2 },
+  Tues: { byday: "TU", dayOfWeek: 2 },
+  Wed: { byday: "WE", dayOfWeek: 3 },
+  Thu: { byday: "TH", dayOfWeek: 4 },
+  Fri: { byday: "FR", dayOfWeek: 5 },
+  Sat: { byday: "SA", dayOfWeek: 6 },
+  Sun: { byday: "SU", dayOfWeek: 0 },
 };
 
 // Fixed anchor date for stable DTSTART across builds (2026-01-01 is a Thursday)
@@ -54,7 +57,7 @@ function findFirstOccurrence(days) {
   const anchorDow = ANCHOR.getDay();
   let minOffset = 7;
   for (const day of days) {
-    const target = DAY_OF_WEEK[day];
+    const target = DAYS[day].dayOfWeek;
     const offset = (target - anchorDow + 7) % 7;
     if (offset < minOffset) minOffset = offset;
   }
@@ -64,7 +67,7 @@ function findFirstOccurrence(days) {
 }
 
 function findMonthlyOrdinalStart(n, dayAbbr) {
-  const target = DAY_OF_WEEK[dayAbbr];
+  const target = DAYS[dayAbbr].dayOfWeek;
   const year = ANCHOR.getFullYear();
   const month = ANCHOR.getMonth();
   if (n > 0) {
@@ -109,7 +112,7 @@ export function netToVevent(net, tzid, dtstamp) {
     const abbr = m[2];
     const startDate = findMonthlyOrdinalStart(n, abbr);
     dtstart = formatIcalDateTime(startDate.getFullYear(), startDate.getMonth() + 1, startDate.getDate(), hour, minute);
-    rrule = `RRULE:FREQ=MONTHLY;BYDAY=${n}${BYDAY[abbr]}`;
+    rrule = `RRULE:FREQ=MONTHLY;BYDAY=${n}${DAYS[abbr].byday}`;
   } else if (/\/\d+$/.test(dayPart)) {
     // N-weekly interval: "Tue/2", "Wed/3"
     const m = dayPart.match(/^(\w+)\/(\d+)$/);
@@ -117,7 +120,7 @@ export function netToVevent(net, tzid, dtstamp) {
     const interval = parseInt(m[2]);
     const firstDate = findFirstOccurrence([abbr]);
     dtstart = formatIcalDateTime(firstDate.getFullYear(), firstDate.getMonth() + 1, firstDate.getDate(), hour, minute);
-    rrule = `RRULE:FREQ=WEEKLY;INTERVAL=${interval};BYDAY=${BYDAY[abbr]}`;
+    rrule = `RRULE:FREQ=WEEKLY;INTERVAL=${interval};BYDAY=${DAYS[abbr].byday}`;
   } else {
     const days = dayPart.split(",");
     const firstDate = findFirstOccurrence(days);
@@ -128,7 +131,7 @@ export function netToVevent(net, tzid, dtstamp) {
       hour,
       minute,
     );
-    const byday = days.map((d) => BYDAY[d]).join(",");
+    const byday = days.map((d) => DAYS[d].byday).join(",");
     rrule = `RRULE:FREQ=WEEKLY;BYDAY=${byday}`;
   }
 
