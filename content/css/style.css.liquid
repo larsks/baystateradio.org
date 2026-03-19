@@ -374,6 +374,16 @@ a, a:link, a:visited, a:hover, a:active {
     overflow: visible;
     border-radius: 0;
     break-inside: avoid;
+    border: none;
+  }
+
+  .org-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: thin solid #ccc;
+    pointer-events: none;
+    z-index: 10;
   }
 
   .org-card-image {
