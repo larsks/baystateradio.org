@@ -2,4 +2,4 @@
 /_site/
 /node_modules/
 *.log
-.tickets/
+.tickets/lock
