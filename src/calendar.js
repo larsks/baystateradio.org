@@ -85,7 +85,7 @@ export function getNetsForMonth(events, year, month) {
 	return dayMap;
 }
 
-function renderCalendar(events, year, month, container) {
+function buildCalendarHtml(events, year, month) {
 	const dayMap = getNetsForMonth(events, year, month);
 	const firstDay = new Date(year, month, 1).getDay();
 	const daysInMonth = new Date(year, month + 1, 0).getDate();
@@ -133,6 +133,11 @@ function renderCalendar(events, year, month, container) {
 	}
 
 	html += `</div>`;
+	return html;
+}
+
+function renderCalendar(events, year, month, container) {
+	const html = buildCalendarHtml(events, year, month);
 	container.innerHTML = html;
 
 	document.getElementById("cal-prev").addEventListener("click", () => {
