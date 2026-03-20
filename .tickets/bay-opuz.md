@@ -1,6 +1,6 @@
 ---
 id: bay-opuz
-status: open
+status: closed
 deps: [human]
 links: []
 created: 2026-03-19T14:44:20Z
@@ -12,3 +12,9 @@ assignee: Lars Kellogg-Stedman
 
 The Falmouth ARA has a bunch of nets listed at https://www.falara.org/activities/nets. Add these to the list. Need to figure out how to differentiate between Falmouth and Framingham ARA...
 
+
+## Notes
+
+**2026-03-20T01:16:56Z**
+
+Use slugs framingham-ara and falmouth-ara
