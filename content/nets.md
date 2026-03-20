@@ -29,7 +29,8 @@ If you would like to add a new net to this calendar, please use [our request for
     <th>Schedule</th>
     <th>Frequency</th>
   </tr>
-{%- for net in collections.net -%}
+{%- assign sortedNets = collections.net | sort: 'data.title' -%}
+{%- for net in sortedNets -%}
 <tr>
     <td><a href="{{ net.url }}">{{ net.data.title }}</a></td>
     <td>{{ net.data.schedule | formatSchedule}}</td>
