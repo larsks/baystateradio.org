@@ -1,5 +1,5 @@
 ---
-title: FARA 10 Meter Group
+title: Falmouth ARA 10 Meter Group
 url: https://www.falara.org/activities/nets
 schedule: "* 11:00 60m"
 organization: falmouth-ara
