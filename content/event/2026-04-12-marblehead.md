@@ -6,4 +6,4 @@ url: https://sites.google.com/view/caararaces/home
 organization: caara
 ---
 
-{% include "caara-races-blurb.liquid" %}
+{% include "./snippets/caara-races.liquid" %}
