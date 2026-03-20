@@ -6,6 +6,7 @@ import { eventsByMonth } from "./src/events.js";
 import pluginTOC from "eleventy-plugin-toc";
 import anchorPlugin from "markdown-it-anchor";
 import attrsPlugin from "markdown-it-attrs";
+import markdownItContainer from "markdown-it-container";
 
 // Helper function for configuring passthrough copy by extension
 function passthroughCopyExtension(eleventyConfig, ext) {
@@ -16,7 +17,19 @@ function passthroughCopyExtension(eleventyConfig, ext) {
 
 // Define files that should be copied into the rendered content directory.
 function setupPassthroughCopy(eleventyConfig) {
-	const extensions = ["kmz", "kml", "png", "jpg", "pdf", "txt", "gpx", "js", "gif", "webp", "svg"];
+	const extensions = [
+		"kmz",
+		"kml",
+		"png",
+		"jpg",
+		"pdf",
+		"txt",
+		"gpx",
+		"js",
+		"gif",
+		"webp",
+		"svg",
+	];
 	extensions.forEach((ext) => passthroughCopyExtension(eleventyConfig, ext));
 }
 
@@ -51,7 +64,7 @@ export default function (eleventyConfig) {
 			typographer: false,
 			breaks: false,
 		},
-		plugins: [anchorPlugin, attrsPlugin],
+		plugins: [anchorPlugin, attrsPlugin, [markdownItContainer, "noprint"]],
 	});
 	eleventyConfig.addPlugin(pluginTOC, {
 		ul: true,
