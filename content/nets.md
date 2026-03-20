@@ -16,9 +16,9 @@ If you would like to add a new net to this calendar, please use [our request for
 
 [our request form]: https://github.com/baystateradio/baystateradio.org/issues/new?template=new_net.yaml
 
-## Calendar {.calendar}
+## Calendar {.noprint}
 
-<div id="net-calendar"></div>
+<div id="net-calendar" class=".noprint"></div>
 <script src="/js/calendar.js" defer></script>
 
 ## List of nets {.calendar}
