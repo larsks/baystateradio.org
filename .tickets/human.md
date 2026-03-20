@@ -1,6 +1,6 @@
 ---
 id: human
-status: open
+status: ignore
 deps: []
 links: []
 created: 2026-03-19T14:45:11Z
