@@ -1,5 +1,5 @@
 ---
-title: FARA 6 Meter Net
+title: Falmouth ARA 6 Meter Net
 url: https://www.falara.org/activities/nets
 schedule: Wed 19:00 60m
 organization: falmouth-ara
