@@ -6,6 +6,10 @@ on:
     branches: ["main"]
   workflow_dispatch:
 
+  # Ensure that the event list gets regenerated daily
+  schedule:
+    - cron: "17 0 * * *"
+
 permissions:
   contents: read
   pages: write
