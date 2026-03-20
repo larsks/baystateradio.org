@@ -99,7 +99,7 @@ function buildCalendarHtml(events, year, month) {
     <span class="cal-month-label">${MONTH_NAMES[month]} ${year}</span>
     <button class="cal-nav" id="cal-next" aria-label="Next month">&#8250;</button>
     <button class="noprint cal-nav" id="cal-today" aria-label="Go to today"${isCurrentMonth ? " disabled" : ""}>Today</button>
-    <a class="noprint cal-subscribe" href="/nets.ics">Subscribe</a>
+    <a class="noprint cal-subscribe" href="/nets.ics">Add to calendar</a>
   </div>
   <div class="cal-grid">`;
 
@@ -160,7 +160,11 @@ function init() {
 				const target = e.target;
 
 				// Check if a navigation button was clicked
-				if (target.id === "cal-prev" || target.id === "cal-next" || target.id === "cal-today") {
+				if (
+					target.id === "cal-prev" ||
+					target.id === "cal-next" ||
+					target.id === "cal-today"
+				) {
 					const currentYear = parseInt(container.dataset.currentYear, 10);
 					const currentMonth = parseInt(container.dataset.currentMonth, 10);
 					let newYear = currentYear;
