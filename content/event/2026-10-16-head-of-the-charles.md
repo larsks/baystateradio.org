@@ -4,7 +4,7 @@ schedule: 2026-10-16 07:00 6h
 url: https://hocr.org/volunteers/volunteer-opportunities/
 ---
 
-{%include "no-info.liquid" %}
+{% include "./snippets/no-info.liquid" %}
 
 ___
 

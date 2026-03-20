@@ -5,6 +5,9 @@ layout: base.liquid
 <section>
   <table class="bordered">
     <tr><th>Name:</th><td>{{ title }}</td></tr>
+{% if organization %}
+  <tr><th>Organization:</th><td>{{ organization | formatOrganization }}</td></tr>
+{% endif %}
 {% if url %}
     <tr><th>URL:</th><td><a href="{{ url }}">{{ url }}</a></td></tr>
 {% endif %}

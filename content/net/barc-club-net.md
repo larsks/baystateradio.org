@@ -2,6 +2,7 @@
 title: BARC Club Net
 url: https://www.barc.org/barc-net/
 frequency: 145.230 -0.600 88.5 (BARC)
+organization: barc
 schedule: Mon 21:00 60m
 ---
 
