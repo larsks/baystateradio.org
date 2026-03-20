@@ -1,5 +1,5 @@
 ---
-title: Framinghatm Amateur Radio Society
+title: Framingham Amateur Radio Society
 acronym: FARA
 url: https://w1fy.org/
 location: Framingham, MA

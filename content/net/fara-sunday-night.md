@@ -2,6 +2,7 @@
 title: FARA Sunday Night Net
 url: https://w1fy.org/
 schedule: Sun 19:30 60m
+organization: framingham-ara
 frequency: 147.150 +0.600 100
 ---
 
