@@ -471,24 +471,19 @@ article:not(:last-of-type) {
     display: none;
   }
 
-  .org-card {
-    overflow: visible;
-    border-radius: 0;
-    break-inside: avoid;
-    border: none;
+  .org-grid {
+    grid-template-columns: 1fr;
   }
 
-  .org-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border: thin solid var(--color-border);
-    pointer-events: none;
-    z-index: 10;
+  .org-card {
+    border: none;
+    border-radius: 0;
+    break-inside: avoid;
   }
 
   .org-card-image {
-    overflow: visible;
+    height: auto;
+    background: none;
   }
 }
 
