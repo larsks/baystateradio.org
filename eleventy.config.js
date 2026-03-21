@@ -9,6 +9,7 @@ import pluginTOC from "eleventy-plugin-toc";
 import anchorPlugin from "markdown-it-anchor";
 import attrsPlugin from "markdown-it-attrs";
 import markdownItContainer from "markdown-it-container";
+import { feedPlugin } from "@11ty/eleventy-plugin-rss";
 
 // Helper function for configuring passthrough copy by extension
 function passthroughCopyExtension(eleventyConfig, ext) {
@@ -47,7 +48,9 @@ function exposeRunMode(eleventyConfig) {
 }
 
 export default function (eleventyConfig) {
-	eleventyConfig.addDataExtension("yaml,yml", (contents) => yaml.load(contents));
+	eleventyConfig.addDataExtension("yaml,yml", (contents) =>
+		yaml.load(contents),
+	);
 
 	exposeRunMode(eleventyConfig);
 
@@ -62,6 +65,24 @@ export default function (eleventyConfig) {
 		});
 	});
 
+	eleventyConfig.addPlugin(feedPlugin, {
+		type: "atom", // or "rss", "json"
+		outputPath: "/feed.xml",
+		collection: {
+			name: "post", // iterate over `collections.posts`
+			limit: 10, // 0 means no limit
+		},
+		metadata: {
+			language: "en",
+			title: "Bay State Radio",
+			subtitle: "Amateur radio in the metro Boston area",
+			base: "https://baystateradio.org",
+			author: {
+				name: "Bay State Radio Maintainers",
+			},
+		},
+	});
+
 	eleventyConfig.addPlugin(markdownPlugin, {
 		options: {
 			preset: "commonmark",
@@ -72,13 +93,17 @@ export default function (eleventyConfig) {
 			anchorPlugin,
 			attrsPlugin,
 			[markdownItContainer, "noprint"],
-			[markdownItContainer, "hidden-sm", {
-				render(tokens, idx) {
-					return tokens[idx].nesting === 1
-						? '<div class="hidden-sm noprint">\n'
-						: '</div>\n';
-				}
-			}],
+			[
+				markdownItContainer,
+				"hidden-sm",
+				{
+					render(tokens, idx) {
+						return tokens[idx].nesting === 1
+							? '<div class="hidden-sm noprint">\n'
+							: "</div>\n";
+					},
+				},
+			],
 		],
 	});
 	eleventyConfig.addPlugin(pluginTOC, {

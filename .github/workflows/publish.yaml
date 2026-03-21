@@ -6,6 +6,8 @@ on:
     branches: ["main"]
     paths:
       - "content/**"
+      - eleventy.config.js
+      - src/**
   workflow_dispatch:
 
   # Ensure that the event list gets regenerated daily
