@@ -2,6 +2,7 @@ import esbuild from "esbuild";
 import markdownPlugin from "@jgarber/eleventy-plugin-markdown";
 import { formatSchedule, formatEventDate } from "./src/schedule.js";
 import { resolveOrganization, formatOrganization } from "./src/org.js";
+import { formatAuthor } from "./src/author.js";
 import { eventsByMonth } from "./src/events.js";
 import pluginTOC from "eleventy-plugin-toc";
 import anchorPlugin from "markdown-it-anchor";
@@ -93,6 +94,10 @@ export default function (eleventyConfig) {
 	eleventyConfig.addFilter("formatOrganization", function (slug) {
 		const orgs = this.context?.getAll()?.collections?.org ?? [];
 		return formatOrganization(slug, orgs);
+	});
+	eleventyConfig.addFilter("formatAuthor", function (slug) {
+		const authors = this.context?.getAll()?.authors ?? {};
+		return formatAuthor(slug, authors);
 	});
 
 	eleventyConfig.addFilter("firstParagraph", (html) => {
