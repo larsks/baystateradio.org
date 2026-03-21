@@ -456,6 +456,13 @@ a, a:link, a:visited, a:hover, a:active {
 @media print {
   body > header h1 {
     color: black;
+    font-size: revert;
+    text-align: left;
+  }
+
+  header .hero,
+  header .hero--small {
+    text-align: left;
   }
 
   a, a:link, a:visited, a:hover, a:active {
