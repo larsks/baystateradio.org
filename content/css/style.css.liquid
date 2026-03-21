@@ -350,19 +350,18 @@ a, a:link, a:visited, a:hover, a:active {
   margin-top: 0;
 }
 
-@media (max-width: 600px) {
+@media screen and (max-width: 768px) {
   .home-layout {
     grid-template-columns: 1fr;
   }
+
   .sidebar {
     border-left: none;
     border-top: 2px solid #ccc;
     padding-left: 0;
     padding-top: 1em;
   }
-}
 
-@media screen and (max-width: 768px) {
   .hidden-sm {
     display: none;
   }
@@ -446,7 +445,7 @@ a, a:link, a:visited, a:hover, a:active {
   }
 }
 
-@media (min-width: 769px) {
+@media screen and (min-width: 769px) {
   .nav-toggle,
   .show-sm {
     display: none;
