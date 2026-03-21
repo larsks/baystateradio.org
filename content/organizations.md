@@ -14,11 +14,11 @@ To add a new organization to this directory, please use [our request form].
 <div class="org-grid">
 {%- for org in sortedOrgs -%}
 <article class="org-card">
-  {%- if org.data.coverImage -%}
   <div class="org-card-image">
+    {%- if org.data.coverImage -%}
     <img src="{{ org.data.coverImage }}" alt="{{ org.data.title }}">
+    {%- endif -%}
   </div>
-  {%- endif -%}
   <div class="org-card-body">
     <h2><a class="org-card-link" href="{{ org.url }}">{{ org.data.title }}{% if org.data.acronym %} ({{ org.data.acronym }}){% endif %}</a></h2>
     {%- if org.data.url -%}<p><a class="org-card-url" href="{{ org.data.url }}">{{ org.data.url }}</a></p>{%- endif -%}
