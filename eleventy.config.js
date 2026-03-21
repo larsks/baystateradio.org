@@ -64,7 +64,18 @@ export default function (eleventyConfig) {
 			typographer: false,
 			breaks: false,
 		},
-		plugins: [anchorPlugin, attrsPlugin, [markdownItContainer, "noprint"]],
+		plugins: [
+			anchorPlugin,
+			attrsPlugin,
+			[markdownItContainer, "noprint"],
+			[markdownItContainer, "hidden-sm", {
+				render(tokens, idx) {
+					return tokens[idx].nesting === 1
+						? '<div class="hidden-sm noprint">\n'
+						: '</div>\n';
+				}
+			}],
+		],
 	});
 	eleventyConfig.addPlugin(pluginTOC, {
 		ul: true,
