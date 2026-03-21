@@ -329,10 +329,6 @@ article:not(:last-of-type) {
   background: lightblue;
 }
 
-a, a:link, a:visited, a:hover, a:active {
-  text-decoration: none;
-}
-
 /* Home page two-column layout */
 .home-layout {
   display: grid;
@@ -350,7 +346,7 @@ a, a:link, a:visited, a:hover, a:active {
   margin-top: 0;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 768px), print {
   .home-layout {
     grid-template-columns: 1fr;
   }
@@ -361,7 +357,9 @@ a, a:link, a:visited, a:hover, a:active {
     padding-left: 0;
     padding-top: 1em;
   }
+}
 
+@media screen and (max-width: 768px) {
   .hidden-sm {
     display: none;
   }
@@ -457,23 +455,12 @@ a, a:link, a:visited, a:hover, a:active {
     color: black;
   }
 
-  a, a:link, a:visited, a:hover, a:active {
-    color: inherit !important;
+  a {
+    color: inherit;
   }
 
-  body > header nav,.noprint {
+  body > header nav, .noprint {
     display: none;
-  }
-
-  .home-layout {
-    grid-template-columns: 1fr;
-  }
-
-  .sidebar {
-    border-left: none;
-    border-top: 2px solid #ccc;
-    padding-left: 0;
-    padding-top: 1em;
   }
 
   .org-card {
