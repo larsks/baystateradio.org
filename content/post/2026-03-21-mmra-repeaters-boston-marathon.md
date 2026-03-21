@@ -1,6 +1,6 @@
 ---
 title: MMRA Repeater use for the marathon on April 20
-author: Lars Kellogg-Stedman (N1LKS)
+author: n1lks
 ---
 
 From the MMRA mailing list:
