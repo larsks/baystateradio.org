@@ -1,6 +1,6 @@
 ---
 id: bay-seur
-status: in_progress
+status: closed
 deps: []
 links: []
 created: 2026-03-21T12:12:38Z
