@@ -12,7 +12,7 @@ layout: base.liquid
       <article>
         <header>
           <h3><a href="{{ latest.url }}">{{ latest.data.title }}</a></h3>
-          <p class="byline">{% if latest.data.author %}by {{ latest.data.author }} at {% endif %}<time datetime="{{ latest.date | date: "%Y-%m-%d" }}">{{ latest.date | date: "%Y-%m-%d" }}</time></p>
+          <p class="byline">{% if latest.data.author %}by {{ latest.data.author | formatAuthor }} at {% endif %}<time datetime="{{ latest.date | date: "%Y-%m-%d" }}">{{ latest.date | date: "%Y-%m-%d" }}</time></p>
         </header>
 
 {% if latest.data.page.excerpt %}

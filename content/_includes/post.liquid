@@ -4,7 +4,7 @@ layout: base.liquid
 
 <article>
   <header>
-    <p class="byline">{% if author %}by {{ author }} at {% endif %}<time datetime="{{ page.date | date: "%Y-%m-%d"}}">{{ page.date | date: "%Y-%m-%d" }}</time></p>
+    <p class="byline">{% if author %}by {{ author | formatAuthor }} at {% endif %}<time datetime="{{ page.date | date: "%Y-%m-%d"}}">{{ page.date | date: "%Y-%m-%d" }}</time></p>
   </header>
 
   {{ content }}
