@@ -2,10 +2,19 @@
 permalink: /css/style.css
 layout: false
 ---
+:root {
+  --font-display:    Avenir, Montserrat, Corbel, 'URW Gothic', source-sans-pro, sans-serif;
+  --color-nav:       #222;
+  --color-border:    var(--color-border);
+  --color-muted:     var(--color-muted);
+  --color-bg-subtle: var(--color-bg-subtle);
+  --color-today:     var(--color-today);
+}
+
 body {
   max-width: 2400px; /* Prevents it from getting too wide */
   margin: 0 auto;    /* Centers horizontally */
-  /*font-family: Avenir, Montserrat, Corbel, 'URW Gothic', source-sans-pro, sans-serif;*/
+  /*font-family: var(--font-display);*/
   /*font-family: Seravek, 'Gill Sans Nova', Ubuntu, Calibri, 'DejaVu Sans', source-sans-pro, sans-serif;*/
 }
 
@@ -29,7 +38,7 @@ body > header {
 }
 
 body > header nav {
-  background-color: #222;
+  background-color: var(--color-nav);
   padding: 0.5rem 0.5in;
 }
 
@@ -59,7 +68,7 @@ body > header nav a[aria-current="page"] {
 body > header h1 {
   color: white;
   /* font-family: system-ui, sans-serif; */
-  font-family: Avenir, Montserrat, Corbel, 'URW Gothic', source-sans-pro, sans-serif;
+  font-family: var(--font-display);
   padding: 0 0.5in;
 }
 
@@ -151,7 +160,7 @@ article:not(:last-of-type) {
 }
 
 .org-card {
-  border: thin solid #ccc;
+  border: thin solid var(--color-border);
   border-radius: 4px;
   overflow: hidden;
   display: flex;
@@ -212,7 +221,7 @@ article:not(:last-of-type) {
 }
 
 .org-card-body .org-excerpt {
-  color: #555;
+  color: var(--color-muted);
   margin-top: 0.5rem;
 }
 
@@ -231,13 +240,13 @@ article:not(:last-of-type) {
 .cal-month-label {
   font-weight: 700;
   font-size: 1.1rem;
-  font-family: Avenir, Montserrat, Corbel, 'URW Gothic', source-sans-pro, sans-serif;
+  font-family: var(--font-display);
   min-width: 11em;
   text-align: center;
 }
 
 .cal-nav {
-  background: #222;
+  background: var(--color-nav);
   color: white;
   border: none;
   padding: 0.2rem 0.6rem;
@@ -254,42 +263,42 @@ article:not(:last-of-type) {
 .cal-subscribe {
   margin-left: auto;
   font-size: 0.85rem;
-  color: #555;
+  color: var(--color-muted);
   text-decoration: none;
-  border: thin solid #ccc;
+  border: thin solid var(--color-border);
   padding: 0.2rem 0.5rem;
   border-radius: 3px;
 }
 
 .cal-subscribe:hover {
-  color: #222;
+  color: var(--color-nav);
   border-color: #888;
 }
 
 .cal-grid {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
-  border-left: thin solid #ccc;
-  border-top: thin solid #ccc;
+  border-left: thin solid var(--color-border);
+  border-top: thin solid var(--color-border);
 }
 
 .cal-dow {
   text-align: center;
   font-weight: 600;
   font-size: 0.8rem;
-  font-family: Avenir, Montserrat, Corbel, 'URW Gothic', source-sans-pro, sans-serif;
+  font-family: var(--font-display);
   padding: 0.3rem 0;
-  background: #f0f0f0;
-  border-right: thin solid #ccc;
-  border-bottom: thin solid #ccc;
+  background: var(--color-bg-subtle);
+  border-right: thin solid var(--color-border);
+  border-bottom: thin solid var(--color-border);
 }
 
 .cal-cell {
   min-height: 5rem;
   padding: 0.25rem;
-  border-right: thin solid #ccc;
-  border-bottom: thin solid #ccc;
-  vertical-align: top;
+  border-right: thin solid var(--color-border);
+  border-bottom: thin solid var(--color-border);
+  align-self: start;
 }
 
 .cal-cell--empty {
@@ -300,19 +309,19 @@ article:not(:last-of-type) {
   display: block;
   font-size: 0.8rem;
   font-weight: 600;
-  color: #555;
+  color: var(--color-muted);
   margin-bottom: 0.2rem;
   padding: 0 0.2rem;
 }
 
 .cal-cell--today .cal-day-num {
   color: black;
-  background: #ff704d;
+  background: var(--color-today);
 }
 
 .cal-pill {
   display: block;
-  background: #f0f0f0;
+  background: var(--color-bg-subtle);
   color: black;
   font-size: 0.7rem;
   padding: 0.1rem 0.3rem;
@@ -338,7 +347,7 @@ article:not(:last-of-type) {
 }
 
 .sidebar {
-  border-left: 2px solid #ccc;
+  border-left: 2px solid var(--color-border);
   padding-left: 1em;
 }
 
@@ -353,7 +362,7 @@ article:not(:last-of-type) {
 
   .sidebar {
     border-left: none;
-    border-top: 2px solid #ccc;
+    border-top: 2px solid var(--color-border);
     padding-left: 0;
     padding-top: 1em;
   }
@@ -474,7 +483,7 @@ article:not(:last-of-type) {
     content: '';
     position: absolute;
     inset: 0;
-    border: thin solid #ccc;
+    border: thin solid var(--color-border);
     pointer-events: none;
     z-index: 10;
   }
