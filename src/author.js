@@ -14,9 +14,12 @@ export function resolveAuthor(slug, authors) {
 
 /**
  * Format an author slug as a display string.
- * Returns "Name (Callsign)" linked to the author's URL if found,
- * plain "Name (Callsign)" if found but no URL,
- * or the raw slug verbatim as a fallback.
+ *
+ * If a registry entry is found and has a name:
+ *   - The name is linked to the author's URL (if present)
+ *   - The callsign is linked to https://hamdb.org/CALLSIGN (if present)
+ *   - Format: "Name (Callsign)" with each part independently linked
+ * Falls back to the raw slug verbatim if no matching entry or no name.
  *
  * @param {string} slug - the author identifier or verbatim author string
  * @param {object} authors - the authors global data object
@@ -25,10 +28,13 @@ export function resolveAuthor(slug, authors) {
 export function formatAuthor(slug, authors) {
 	if (!slug) return "";
 	const author = resolveAuthor(slug, authors);
-	if (!author) return String(slug);
+	if (!author || !author.name) return String(slug);
 	const { name, callsign, url } = author;
-	const label = callsign
-		? `${escHtml(name)} (${escHtml(callsign)})`
+	const namePart = url
+		? `<a href="${escHtml(url)}">${escHtml(name)}</a>`
 		: escHtml(name);
-	return url ? `<a href="${escHtml(url)}">${label}</a>` : label;
+	if (!callsign) return namePart;
+	const callsignUrl = `https://hamdb.org/${encodeURIComponent(callsign.toLowerCase())}`;
+	const callsignPart = `<a href="${escHtml(callsignUrl)}">${escHtml(callsign.toUpperCase())}</a>`;
+	return `${namePart} (${callsignPart})`;
 }
