@@ -5,10 +5,10 @@ layout: false
 :root {
   --font-display:    Avenir, Montserrat, Corbel, 'URW Gothic', source-sans-pro, sans-serif;
   --color-nav:       #222;
-  --color-border:    var(--color-border);
-  --color-muted:     var(--color-muted);
-  --color-bg-subtle: var(--color-bg-subtle);
-  --color-today:     var(--color-today);
+  --color-border:    #ccc;
+  --color-muted:     #555;
+  --color-bg-subtle: #f0f0f0;
+  --color-today:     #ff704d;
 }
 
 body {
@@ -39,7 +39,7 @@ body > header {
 
 body > header nav {
   background-color: var(--color-nav);
-  padding: 0.5rem 0.5in;
+  padding: 0.5rem 3rem;
 }
 
 body > header nav ul {
@@ -69,15 +69,15 @@ body > header h1 {
   color: white;
   /* font-family: system-ui, sans-serif; */
   font-family: var(--font-display);
-  padding: 0 0.5in;
+  padding: 0 3rem;
 }
 
 body > main {
-  padding: 0.25in 0.5in;
+  padding: 1.5rem 3rem;
 }
 
 body > footer {
-  padding: 0 0.5in;
+  padding: 0 3rem;
 }
 
 body > footer::before {
@@ -444,7 +444,7 @@ article:not(:last-of-type) {
   }
 
   body > main {
-    padding: 0.25in 1rem;
+    padding: 1.5rem 1rem;
   }
 
   body > footer {
@@ -452,7 +452,7 @@ article:not(:last-of-type) {
   }
 }
 
-@media screen and (min-width: 769px) {
+@media screen and (min-width: 768px) {
   .nav-toggle,
   .show-sm {
     display: none;
