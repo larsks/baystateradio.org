@@ -479,12 +479,21 @@ article:not(:last-of-type) {
     border: none;
     border-radius: 0;
     break-inside: avoid;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 0.5rem;
   }
 
   .org-card-image {
+    width: 1.5in;
+    flex-shrink: 0;
     height: auto;
-    max-height: 2in;
     background: none;
+  }
+
+  .org-card-image img {
+    width: 100%;
+    height: auto;
   }
 }
 
