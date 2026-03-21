@@ -14,6 +14,9 @@
       <h1>Bay State Radio</h1>
     </div>
     <nav>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
       <ul>
         {% assign weighted_pages = collections.page | sort: 'data.weight' %}
         {%- for navPage in weighted_pages -%}
@@ -22,6 +25,15 @@
       </ul>
     </nav>
   </header>
+  <script>
+    const toggle = document.querySelector('.nav-toggle');
+    const navList = document.querySelector('nav ul');
+    toggle.addEventListener('click', () => {
+      const expanded = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!expanded));
+      navList.classList.toggle('open');
+    });
+  </script>
   <main>
 {% if page.url != "/" %}
     <h1>{{ title }}</h1>
