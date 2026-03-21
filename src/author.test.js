@@ -6,6 +6,7 @@ const authors = {
 	nourl: { name: "Jane Smith", callsign: "W1ABC" },
 	nocall: { name: "John Doe", url: "https://example.com/" },
 	nameonly: { name: "Anonymous" },
+	noname: { callsign: "W1XYZ", url: "https://example.com/" },
 };
 
 describe("resolveAuthor", () => {
@@ -39,14 +40,16 @@ describe("resolveAuthor", () => {
 });
 
 describe("formatAuthor", () => {
-	it("returns linked name and callsign when author has url and callsign", () => {
+	it("returns separately linked name and callsign when author has url and callsign", () => {
 		expect(formatAuthor("n1lks", authors)).toBe(
-			'<a href="https://n1lks.oddbit.com/">Lars Kellogg-Stedman (N1LKS)</a>',
+			'<a href="https://n1lks.oddbit.com/">Lars Kellogg-Stedman</a> (<a href="https://hamdb.org/n1lks">N1LKS</a>)',
 		);
 	});
 
-	it("returns plain name and callsign when author has no url", () => {
-		expect(formatAuthor("nourl", authors)).toBe("Jane Smith (W1ABC)");
+	it("returns plain linked name and linked callsign when author has no url", () => {
+		expect(formatAuthor("nourl", authors)).toBe(
+			'Jane Smith (<a href="https://hamdb.org/w1abc">W1ABC</a>)',
+		);
 	});
 
 	it("returns linked name only when author has url but no callsign", () => {
@@ -65,6 +68,10 @@ describe("formatAuthor", () => {
 		);
 	});
 
+	it("returns verbatim slug when registry entry has no name", () => {
+		expect(formatAuthor("noname", authors)).toBe("noname");
+	});
+
 	it("returns empty string for empty slug", () => {
 		expect(formatAuthor("", authors)).toBe("");
 	});
@@ -78,21 +85,37 @@ describe("formatAuthor", () => {
 	});
 
 	it("escapes HTML in name", () => {
-		const a = { "<script>": { name: "<script>alert('xss')</script>", callsign: "XSS" } };
-		expect(formatAuthor("<script>", a)).toBe(
-			"&lt;script&gt;alert(&#39;xss&#39;)&lt;/script&gt; (XSS)",
+		const a = { test: { name: "<b>Bad</b>", callsign: "W1TST" } };
+		expect(formatAuthor("test", a)).toBe(
+			'&lt;b&gt;Bad&lt;/b&gt; (<a href="https://hamdb.org/w1tst">W1TST</a>)',
 		);
 	});
 
-	it("escapes HTML in callsign", () => {
-		const a = { test: { name: "Test User", callsign: "<CALL>" } };
-		expect(formatAuthor("test", a)).toBe("Test User (&lt;CALL&gt;)");
+	it("escapes HTML in callsign display", () => {
+		const a = { test: { name: "Test User", callsign: "<call>" } };
+		expect(formatAuthor("test", a)).toBe(
+			'Test User (<a href="https://hamdb.org/%3Ccall%3E">&lt;CALL&gt;</a>)',
+		);
 	});
 
 	it("escapes HTML in url", () => {
 		const a = { test: { name: "Test User", url: '/path/"onload="alert(1)' } };
 		expect(formatAuthor("test", a)).toBe(
 			'<a href="/path/&quot;onload=&quot;alert(1)">Test User</a>',
+		);
+	});
+
+	it("lowercases callsign in hamdb url", () => {
+		const a = { test: { name: "Test User", callsign: "W1ABC" } };
+		expect(formatAuthor("test", a)).toBe(
+			'Test User (<a href="https://hamdb.org/w1abc">W1ABC</a>)',
+		);
+	});
+
+	it("uppercases callsign in display regardless of registry case", () => {
+		const a = { test: { name: "Test User", callsign: "w1abc" } };
+		expect(formatAuthor("test", a)).toBe(
+			'Test User (<a href="https://hamdb.org/w1abc">W1ABC</a>)',
 		);
 	});
 });
