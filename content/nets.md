@@ -16,7 +16,7 @@ If you would like to add a new net to this calendar, please use [our request for
 
 [our request form]: https://github.com/baystateradio/baystateradio.org/issues/new?template=new_net.yaml
 
-::: noprint
+::: hidden-sm
 ## Calendar
 
 <div id="net-calendar"></div>
@@ -24,6 +24,8 @@ If you would like to add a new net to this calendar, please use [our request for
 :::
 
 ## List of nets {.calendar}
+
+<a class="show-sm noprint cal-subscribe" href="/nets.ics">Add to calendar</a>
 
 <table class="bordered">
   <tr>
