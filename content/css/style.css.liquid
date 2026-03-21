@@ -362,6 +362,12 @@ a, a:link, a:visited, a:hover, a:active {
   }
 }
 
+@media (max-width: 768px) {
+  .noprint:has(#net-calendar) {
+    display: none;
+  }
+}
+
 @media print {
   body > header h1 {
     color: black;
