@@ -27,3 +27,12 @@ All changes are in @media print only.
    work around overflow:hidden; unnecessary in the simplified print layout)
 3. Override .org-card-image: remove fixed height and background so the
    image container sizes naturally to its content
+
+**2026-03-21T04:18:03Z**
+
+Follow-up: need to cap image size in print layout.
+
+Setting height: auto on .org-card-image means large images can dominate the page.
+Add max-height: 2in to .org-card-image in @media print to bound them to a
+reasonable print-friendly size. The image's object-fit: contain ensures it
+scales down proportionally within the container.
