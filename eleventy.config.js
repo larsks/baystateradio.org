@@ -1,4 +1,5 @@
 import esbuild from "esbuild";
+import yaml from "js-yaml";
 import markdownPlugin from "@jgarber/eleventy-plugin-markdown";
 import { formatSchedule, formatEventDate } from "./src/schedule.js";
 import { resolveOrganization, formatOrganization } from "./src/org.js";
@@ -46,6 +47,8 @@ function exposeRunMode(eleventyConfig) {
 }
 
 export default function (eleventyConfig) {
+	eleventyConfig.addDataExtension("yaml,yml", (contents) => yaml.load(contents));
+
 	exposeRunMode(eleventyConfig);
 
 	eleventyConfig.on("eleventy.after", async () => {
