@@ -10,7 +10,7 @@ tags:
 <article>
   <header>
     <h2><a href="{{ post.url }}">{{ post.data.title }}</a></h2>
-    <p class="byline">by {{ post.data.author }} at <time datetime="{{ post.date | date: "%Y-%m-%d"}}">{{ post.date | date: "%Y-%m-%d" }}</time></p>
+    <p class="byline">{% if post.data.author %}by {{ post.data.author | formatAuthor }} at {% endif %}<time datetime="{{ post.date | date: "%Y-%m-%d"}}">{{ post.date | date: "%Y-%m-%d" }}</time></p>
   </header>
 
 {% if post.data.page.excerpt %}
