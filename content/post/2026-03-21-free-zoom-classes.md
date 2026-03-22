@@ -18,6 +18,8 @@ Via Tom Christovich at [K3NEM](https://www.k3nem.org/):
 > registration information, contact Rol Anders, K3RA, at
 > roland.anders@comcast.net. 
 > 
+> ---
+>
 > Subjects will include:
 > 
 > - All About Operating--A general Introduction
