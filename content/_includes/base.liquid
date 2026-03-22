@@ -21,7 +21,8 @@
       <ul>
         {% assign weighted_pages = collections.page | sort: 'data.weight' %}
         {%- for navPage in weighted_pages -%}
-          <li><a href="{{ navPage.url }}"{% if navPage.url == page.url %} aria-current="page"{% endif %}>{{ navPage.data.linkName | default: navPage.data.title }}</a></li>
+          {%- assign _urlPrefix = page.url | slice: 0, navPage.url.size -%}
+          <li><a href="{{ navPage.url }}"{% if navPage.url == page.url %} aria-current="page"{% elsif navPage.url != '/' and _urlPrefix == navPage.url %} aria-current="true"{% endif %}>{{ navPage.data.linkName | default: navPage.data.title }}</a></li>
         {%- endfor -%}
       </ul>
     </nav>
