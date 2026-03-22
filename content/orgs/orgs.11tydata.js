@@ -10,7 +10,7 @@ export default {
 			const files = readdirSync(coverDir);
 			const cover = files.find((f) => /^cover\./i.test(f));
 			if (!cover) return null;
-			return `/org/${slug}/${cover}`;
+			return `/orgs/${slug}/${cover}`;
 		},
 	},
 };

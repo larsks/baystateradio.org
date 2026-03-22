@@ -2,8 +2,8 @@ import { resolveOrganization, formatOrganization, escHtml } from "./org.js";
 import { describe, it, expect } from "vitest";
 
 const orgs = [
-	{ fileSlug: "caara", data: { title: "Cape Ann Amateur Radio Assocation", acronym: "CAARA" }, url: "/org/caara/" },
-	{ fileSlug: "barc", data: { title: "Billerica Amateur Radio Club", acronym: "BARC" }, url: "/org/barc/" },
+	{ fileSlug: "caara", data: { title: "Cape Ann Amateur Radio Assocation", acronym: "CAARA" }, url: "/orgs/caara/" },
+	{ fileSlug: "barc", data: { title: "Billerica Amateur Radio Club", acronym: "BARC" }, url: "/orgs/barc/" },
 ];
 
 describe("resolveOrganization", () => {
@@ -33,7 +33,7 @@ describe("resolveOrganization", () => {
 describe("formatOrganization", () => {
 	it("returns linked title and acronym when org has a url", () => {
 		expect(formatOrganization("caara", orgs)).toBe(
-			'<a href="/org/caara/">Cape Ann Amateur Radio Assocation (CAARA)</a>',
+			'<a href="/orgs/caara/">Cape Ann Amateur Radio Assocation (CAARA)</a>',
 		);
 	});
 
@@ -57,9 +57,9 @@ describe("formatOrganization", () => {
 	});
 
 	it("returns linked title only when org has a url but no acronym", () => {
-		const orgsNoAcronym = [{ fileSlug: "hamb", data: { title: "Ham Radio Boston" }, url: "/org/hamb/" }];
+		const orgsNoAcronym = [{ fileSlug: "hamb", data: { title: "Ham Radio Boston" }, url: "/orgs/hamb/" }];
 		expect(formatOrganization("hamb", orgsNoAcronym)).toBe(
-			'<a href="/org/hamb/">Ham Radio Boston</a>',
+			'<a href="/orgs/hamb/">Ham Radio Boston</a>',
 		);
 	});
 
@@ -69,23 +69,23 @@ describe("formatOrganization", () => {
 	});
 
 	it("escapes HTML characters in title", () => {
-		const orgsWithHtml = [{ fileSlug: "test", data: { title: "<script>alert('xss')</script>", acronym: "TEST" }, url: "/org/test/" }];
+		const orgsWithHtml = [{ fileSlug: "test", data: { title: "<script>alert('xss')</script>", acronym: "TEST" }, url: "/orgs/test/" }];
 		expect(formatOrganization("test", orgsWithHtml)).toBe(
-			'<a href="/org/test/">&lt;script&gt;alert(&#39;xss&#39;)&lt;/script&gt; (TEST)</a>',
+			'<a href="/orgs/test/">&lt;script&gt;alert(&#39;xss&#39;)&lt;/script&gt; (TEST)</a>',
 		);
 	});
 
 	it("escapes HTML characters in acronym", () => {
-		const orgsWithHtml = [{ fileSlug: "test", data: { title: "Test Org", acronym: "<TEST>" }, url: "/org/test/" }];
+		const orgsWithHtml = [{ fileSlug: "test", data: { title: "Test Org", acronym: "<TEST>" }, url: "/orgs/test/" }];
 		expect(formatOrganization("test", orgsWithHtml)).toBe(
-			'<a href="/org/test/">Test Org (&lt;TEST&gt;)</a>',
+			'<a href="/orgs/test/">Test Org (&lt;TEST&gt;)</a>',
 		);
 	});
 
 	it("escapes HTML characters in url", () => {
-		const orgsWithHtml = [{ fileSlug: "test", data: { title: "Test Org", acronym: "TEST" }, url: "/org/test/\"onload=\"alert('xss')" }];
+		const orgsWithHtml = [{ fileSlug: "test", data: { title: "Test Org", acronym: "TEST" }, url: "/orgs/test/\"onload=\"alert('xss')" }];
 		expect(formatOrganization("test", orgsWithHtml)).toBe(
-			'<a href="/org/test/&quot;onload=&quot;alert(&#39;xss&#39;)">Test Org (TEST)</a>',
+			'<a href="/orgs/test/&quot;onload=&quot;alert(&#39;xss&#39;)">Test Org (TEST)</a>',
 		);
 	});
 });

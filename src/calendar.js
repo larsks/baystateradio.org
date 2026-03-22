@@ -52,7 +52,7 @@ export function getNetsForMonth(events, year, month) {
 	for (const event of events) {
 		const uid = event.uid || "";
 		const slug = uid.split("@")[0];
-		const url = slug ? `/net/${slug}/` : "";
+		const url = slug ? `/nets/${slug}/` : "";
 		const frequency = event.description || "";
 		const title = event.summary;
 

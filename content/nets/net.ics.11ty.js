@@ -1,4 +1,4 @@
-import { netToVevent } from "../src/ical.js";
+import { netToVevent } from "../../src/ical.js";
 
 const TZID = "America/New_York";
 
@@ -26,13 +26,16 @@ export const data = {
 		size: 1,
 		alias: "net",
 	},
-	permalink: (data) => `net/${data.net.fileSlug}.ics`,
+	permalink: (data) => `nets/${data.net.fileSlug}.ics`,
 	layout: false,
 	eleventyExcludeFromCollections: true,
 };
 
 export default function render({ net }) {
-	const dtstamp = new Date().toISOString().replace(/[-:]/g, "").replace(/\.\d+/, "");
+	const dtstamp = new Date()
+		.toISOString()
+		.replace(/[-:]/g, "")
+		.replace(/\.\d+/, "");
 	const vevent = netToVevent(net, TZID, dtstamp);
 	return [
 		"BEGIN:VCALENDAR",

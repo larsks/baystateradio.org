@@ -1,5 +1,6 @@
 ---
 title: Public Events Archive
+layout: base
 ---
 
 {% for event in collections.event %}
