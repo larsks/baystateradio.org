@@ -10,6 +10,10 @@ The [ARRL] describes Public Service as "Amateur Radio operators [volunteering to
 
 [arrl]: https://www.arrl.org/
 
+In addition to the schedule below, which is for 12 months starting at the current mouth, we also maintain [an archive of all past events][archive].
+
+[archive]: /events/archive/
+
 ## Schedule
 
 {% assign schedule = collections.event | eventsByMonth %}
