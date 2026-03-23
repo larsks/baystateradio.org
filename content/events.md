@@ -16,6 +16,8 @@ In addition to the schedule below, which is for 12 months starting at the curren
 
 ## Schedule
 
+<a class="noprint cal-subscribe" href="/events.ics">Add to calendar</a>
+
 {% assign schedule = collections.event | eventsByMonth %}
 {% for month in schedule %}
 ### {{ month.name }} {{ month.year }}

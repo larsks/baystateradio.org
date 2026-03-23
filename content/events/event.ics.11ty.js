@@ -9,7 +9,7 @@ export const data = {
 		alias: "event",
 		before: (data) => data.filter((e) => e.data.schedule),
 	},
-	permalink: (data) => `event/${data.event.fileSlug}.ics`,
+	permalink: (data) => `events/${data.event.fileSlug}.ics`,
 	layout: false,
 	eleventyExcludeFromCollections: true,
 };
