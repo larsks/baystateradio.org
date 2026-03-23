@@ -1,27 +1,9 @@
 import { describe, it, expect } from "vitest";
 import ICAL from "ical.js";
-import { netToVevent, formatDuration, foldLine, formatIcalDateTime } from "./ical.js";
+import { netToVevent, eventToVevent, VTIMEZONE, formatDuration, foldLine, formatIcalDateTime } from "./ical.js";
 
 const FIXED_DTSTAMP = "20260101T000000Z";
 const TZID = "America/New_York";
-
-const VTIMEZONE = `BEGIN:VTIMEZONE
-TZID:America/New_York
-BEGIN:DAYLIGHT
-TZOFFSETFROM:-0500
-TZOFFSETTO:-0400
-TZNAME:EDT
-DTSTART:19700308T020000
-RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
-END:DAYLIGHT
-BEGIN:STANDARD
-TZOFFSETFROM:-0400
-TZOFFSETTO:-0500
-TZNAME:EST
-DTSTART:19701101T020000
-RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
-END:STANDARD
-END:VTIMEZONE`;
 
 function makeNet(overrides = {}) {
   return {
@@ -194,8 +176,70 @@ describe("netToVevent", () => {
   });
 });
 
+function makeEvent(overrides = {}) {
+  return {
+    fileSlug: "testevent",
+    data: {
+      title: "Test Event",
+      schedule: "2026-03-28 08:00 4h",
+      location: "Gloucester, MA",
+      ...overrides,
+    },
+  };
+}
+
+describe("eventToVevent", () => {
+  it("ISO date → correct DTSTART, no RRULE", () => {
+    const event = makeEvent({ schedule: "2026-03-28 08:00 4h" });
+    const vevent = eventToVevent(event, TZID, FIXED_DTSTAMP);
+    expect(vevent).toContain("DTSTART;TZID=America/New_York:20260328T080000");
+    expect(vevent).toContain("DURATION:PT4H");
+    expect(vevent).not.toContain("RRULE");
+  });
+
+  it("location field → LOCATION line included", () => {
+    const event = makeEvent({ location: "Gloucester, MA" });
+    const vevent = eventToVevent(event, TZID, FIXED_DTSTAMP);
+    expect(vevent).toContain("LOCATION:Gloucester, MA");
+  });
+
+  it("no location field → no LOCATION line", () => {
+    const event = makeEvent();
+    delete event.data.location;
+    const vevent = eventToVevent(event, TZID, FIXED_DTSTAMP);
+    expect(vevent).not.toContain("LOCATION:");
+  });
+
+  it("url field → URL line included", () => {
+    const event = makeEvent({ url: "https://example.com/event" });
+    const vevent = eventToVevent(event, TZID, FIXED_DTSTAMP);
+    expect(vevent).toContain("URL:https://example.com/event");
+  });
+
+  it("no url field → no URL line", () => {
+    const event = makeEvent();
+    const vevent = eventToVevent(event, TZID, FIXED_DTSTAMP);
+    expect(vevent).not.toContain("URL:");
+  });
+
+  it("contains UID, SUMMARY, BEGIN:VEVENT, END:VEVENT", () => {
+    const event = makeEvent();
+    const vevent = eventToVevent(event, TZID, FIXED_DTSTAMP);
+    expect(vevent).toContain("BEGIN:VEVENT");
+    expect(vevent).toContain("END:VEVENT");
+    expect(vevent).toContain("UID:testevent@baystateradio.org");
+    expect(vevent).toContain("SUMMARY:Test Event");
+  });
+
+  it("DTSTAMP property is present in output", () => {
+    const event = makeEvent();
+    const vevent = eventToVevent(event, TZID, FIXED_DTSTAMP);
+    expect(vevent).toContain(`DTSTAMP:${FIXED_DTSTAMP}`);
+  });
+});
+
 describe("RFC 5545 validation", () => {
-  it("generates valid RFC 5545 output", () => {
+  it("nets generate valid RFC 5545 output", () => {
     const fixtures = [
       makeNet({ schedule: "Thu 19:30 60m" }),
       makeNet({ fileSlug: "tuenet", schedule: "Tue 20:00 30m", title: "Tue Net" }),
@@ -210,6 +254,34 @@ describe("RFC 5545 validation", () => {
     const vevents = comp.getAllSubcomponents("vevent");
     expect(vevents.length).toBe(fixtures.length);
     for (const vevent of vevents) {
+      expect(vevent.getFirstProperty("dtstamp")).not.toBeNull();
+      expect(vevent.getFirstProperty("uid")).not.toBeNull();
+      expect(vevent.getFirstProperty("dtstart")).not.toBeNull();
+    }
+  });
+
+  it("events generate valid RFC 5545 output", () => {
+    const fixtures = [
+      makeEvent({ fileSlug: "event1", schedule: "2026-03-28 08:00 4h", title: "Event One" }),
+      makeEvent({ fileSlug: "event2", schedule: "2026-05-16 09:00 2h", title: "Event Two", location: "Boston, MA" }),
+    ];
+    const vevents = fixtures.map((e) => eventToVevent(e, TZID, FIXED_DTSTAMP));
+    const icsString = [
+      "BEGIN:VCALENDAR",
+      "VERSION:2.0",
+      "PRODID:-//BayStateRadio//Events//EN",
+      "CALSCALE:GREGORIAN",
+      "X-WR-CALNAME:Bay State Radio Events",
+      `X-WR-TIMEZONE:${TZID}`,
+      VTIMEZONE,
+      ...vevents,
+      "END:VCALENDAR",
+    ].join("\r\n");
+    const parsed = ICAL.parse(icsString);
+    const comp = new ICAL.Component(parsed);
+    const veventComps = comp.getAllSubcomponents("vevent");
+    expect(veventComps.length).toBe(fixtures.length);
+    for (const vevent of veventComps) {
       expect(vevent.getFirstProperty("dtstamp")).not.toBeNull();
       expect(vevent.getFirstProperty("uid")).not.toBeNull();
       expect(vevent.getFirstProperty("dtstart")).not.toBeNull();

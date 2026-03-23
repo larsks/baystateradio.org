@@ -1,30 +1,31 @@
-import { netToVevent, VTIMEZONE } from "../../src/ical.js";
+import { eventToVevent, VTIMEZONE } from "../../src/ical.js";
 
 const TZID = "America/New_York";
 
 export const data = {
 	pagination: {
-		data: "collections.net",
+		data: "collections.event",
 		size: 1,
-		alias: "net",
+		alias: "event",
+		before: (data) => data.filter((e) => e.data.schedule),
 	},
-	permalink: (data) => `nets/${data.net.fileSlug}.ics`,
+	permalink: (data) => `event/${data.event.fileSlug}.ics`,
 	layout: false,
 	eleventyExcludeFromCollections: true,
 };
 
-export default function render({ net }) {
+export default function render({ event }) {
 	const dtstamp = new Date()
 		.toISOString()
 		.replace(/[-:]/g, "")
 		.replace(/\.\d+/, "");
-	const vevent = netToVevent(net, TZID, dtstamp);
+	const vevent = eventToVevent(event, TZID, dtstamp);
 	return [
 		"BEGIN:VCALENDAR",
 		"VERSION:2.0",
-		"PRODID:-//BayStateRadio//Net Schedule//EN",
+		"PRODID:-//BayStateRadio//Events//EN",
 		"CALSCALE:GREGORIAN",
-		`X-WR-CALNAME:${net.data.title}`,
+		`X-WR-CALNAME:${event.data.title}`,
 		`X-WR-TIMEZONE:${TZID}`,
 		VTIMEZONE,
 		vevent,

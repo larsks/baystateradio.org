@@ -14,6 +14,24 @@ const DAYS = {
 // Fixed anchor date for stable DTSTART across builds (2026-01-01 is a Thursday)
 const ANCHOR = new Date(2026, 0, 1);
 
+export const VTIMEZONE = `BEGIN:VTIMEZONE
+TZID:America/New_York
+BEGIN:DAYLIGHT
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0400
+TZNAME:EDT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:-0400
+TZOFFSETTO:-0500
+TZNAME:EST
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+END:STANDARD
+END:VTIMEZONE`;
+
 export function foldLine(line) {
 	if (line.length <= 75) return line;
 	let result = line.slice(0, 75);
@@ -80,8 +98,7 @@ function buildRRule(freq, opts = {}) {
 	return `RRULE:FREQ=${freq}${params}`;
 }
 
-export function netToVevent(net, tzid, dtstamp) {
-	const { title, schedule, frequency, url } = net.data;
+function parseSchedule(schedule) {
 	const [dayPart, time, durationStr] = schedule.trim().split(" ");
 	const [hStr, mStr] = time.split(":");
 	const hour = parseInt(hStr, 10);
@@ -152,18 +169,56 @@ export function netToVevent(net, tzid, dtstamp) {
 		rrule = buildRRule("WEEKLY", { BYDAY: byday });
 	}
 
+	return { dtstart, rrule, durationMins };
+}
+
+function buildVeventLines({ uid, dtstamp, summary, dtstart, tzid, durationMins, rrule, description, location, url }) {
 	const lines = [
 		"BEGIN:VEVENT",
-		`UID:${net.fileSlug}@baystateradio.org`,
+		`UID:${uid}`,
 		`DTSTAMP:${dtstamp}`,
-		`SUMMARY:${title}`,
+		`SUMMARY:${summary}`,
 		`DTSTART;TZID=${tzid}:${dtstart}`,
 		`DURATION:${formatDuration(durationMins)}`,
 	];
 	if (rrule) lines.push(rrule);
-	if (frequency) lines.push(`DESCRIPTION:${frequency}`);
+	if (description) lines.push(`DESCRIPTION:${description}`);
+	if (location) lines.push(`LOCATION:${location}`);
 	if (url) lines.push(`URL:${url}`);
 	lines.push("END:VEVENT");
+	return lines;
+}
 
+export function netToVevent(net, tzid, dtstamp) {
+	const { title, schedule, frequency, url } = net.data;
+	const { dtstart, rrule, durationMins } = parseSchedule(schedule);
+	const lines = buildVeventLines({
+		uid: `${net.fileSlug}@baystateradio.org`,
+		dtstamp,
+		summary: title,
+		dtstart,
+		tzid,
+		durationMins,
+		rrule,
+		description: frequency,
+		url,
+	});
+	return lines.map(foldLine).join("\r\n");
+}
+
+export function eventToVevent(event, tzid, dtstamp) {
+	const { title, schedule, location, url } = event.data;
+	const { dtstart, rrule, durationMins } = parseSchedule(schedule);
+	const lines = buildVeventLines({
+		uid: `${event.fileSlug}@baystateradio.org`,
+		dtstamp,
+		summary: title,
+		dtstart,
+		tzid,
+		durationMins,
+		rrule,
+		location,
+		url,
+	});
 	return lines.map(foldLine).join("\r\n");
 }
