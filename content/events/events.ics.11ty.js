@@ -1,9 +1,9 @@
-import { netToVevent, VTIMEZONE } from "../../src/ical.js";
+import { eventToVevent, VTIMEZONE } from "../../src/ical.js";
 
 const TZID = "America/New_York";
 
 export const data = {
-	permalink: "/nets.ics",
+	permalink: "/events.ics",
 	eleventyExcludeFromCollections: true,
 	layout: false,
 };
@@ -13,15 +13,15 @@ export default function render(data) {
 		.toISOString()
 		.replace(/[-:]/g, "")
 		.replace(/\.\d+/, "");
-	const vevents = data.collections.net.map((net) =>
-		netToVevent(net, TZID, dtstamp),
-	);
+	const vevents = data.collections.event
+		.filter((event) => event.data.schedule)
+		.map((event) => eventToVevent(event, TZID, dtstamp));
 	return [
 		"BEGIN:VCALENDAR",
 		"VERSION:2.0",
-		"PRODID:-//BayStateRadio//Net Schedule//EN",
+		"PRODID:-//BayStateRadio//Events//EN",
 		"CALSCALE:GREGORIAN",
-		"X-WR-CALNAME:Bay State Radio Nets",
+		"X-WR-CALNAME:Bay State Radio Events",
 		`X-WR-TIMEZONE:${TZID}`,
 		VTIMEZONE,
 		...vevents,
