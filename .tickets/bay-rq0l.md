@@ -1,6 +1,6 @@
 ---
 id: bay-rq0l
-status: in_progress
+status: closed
 deps: []
 links: []
 created: 2026-03-23T14:07:40Z
